@@ -32,6 +32,7 @@ collections:
             media_folder: "/"
             public_folder: "/"
             hint: "Upload your profile photo here. File will be saved to the root folder."
+          - { label: "Browser Tab Title", name: "tab_title", widget: "string", hint: "This is what appears on the browser tab when someone visits your site." }
 
   - name: "about"
     label: "About Me"

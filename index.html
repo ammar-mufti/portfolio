@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ammar Mufti Mohammed — Technical Product Owner</title>
+  <title>Loading...</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -751,6 +751,7 @@
     const photo = document.getElementById('hero-photo');
     photo.onerror = () => photo.parentElement.style.display = 'none';
     photo.src = h.photo;
+    document.title = h.tab_title || 'Ammar Mufti Mohammed · Portfolio';
   }
 
   // ── Render About ──
