@@ -1,8 +1,7 @@
 backend:
-  name: github
-  repo: ammar-mufti/portfolio
+  name: git-gateway
   branch: main
-  base_url: https://ammarmufti-portfolio.netlify.app
+  repo: ammar-mufti/portfolio
 
 media_folder: "projects"
 public_folder: "projects"
