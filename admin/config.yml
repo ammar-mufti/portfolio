@@ -3,6 +3,8 @@ backend:
   branch: main
   repo: ammar-mufti/portfolio
 
+publish_mode: editorial_workflow
+
 media_folder: "projects"
 public_folder: "projects"
 
