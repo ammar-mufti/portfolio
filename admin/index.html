@@ -35,12 +35,8 @@
       flex-shrink: 0;
       font-size: 12px;
     }
-    .cms-warning-banner .warn-text {
-      color: #E5E7EB;
-    }
-    .cms-warning-banner .warn-text strong {
-      color: #F59E0B;
-    }
+    .cms-warning-banner .warn-text { color: #E5E7EB; }
+    .cms-warning-banner .warn-text strong { color: #F59E0B; }
     .cms-warning-banner .warn-dismiss {
       margin-left: 16px;
       background: none;
@@ -52,11 +48,8 @@
       cursor: pointer;
       flex-shrink: 0;
     }
-    .cms-warning-banner .warn-dismiss:hover {
-      background: rgba(255,255,255,0.1);
-    }
+    .cms-warning-banner .warn-dismiss:hover { background: rgba(255,255,255,0.1); }
 
-    /* ── CONFIRMATION MODAL ── */
     .cms-confirm-overlay {
       display: none;
       position: fixed;
@@ -66,9 +59,7 @@
       align-items: center;
       justify-content: center;
     }
-    .cms-confirm-overlay.active {
-      display: flex;
-    }
+    .cms-confirm-overlay.active { display: flex; }
     .cms-confirm-box {
       background: #fff;
       border-radius: 10px;
@@ -111,11 +102,7 @@
       padding: 8px 12px;
       margin-bottom: 24px;
     }
-    .cms-confirm-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
+    .cms-confirm-actions { display: flex; gap: 12px; justify-content: center; }
     .cms-confirm-actions button {
       padding: 10px 24px;
       border-radius: 6px;
@@ -124,42 +111,17 @@
       cursor: pointer;
       border: none;
     }
-    .btn-cancel-delete {
-      background: #F3F4F6;
-      color: #1A1A2E;
-    }
-    .btn-cancel-delete:hover {
-      background: #E5E7EB;
-    }
-    .btn-confirm-delete {
-      background: #DC2626;
-      color: #fff;
-    }
-    .btn-confirm-delete:hover {
-      background: #B91C1C;
-    }
+    .btn-cancel-delete { background: #F3F4F6; color: #1A1A2E; }
+    .btn-cancel-delete:hover { background: #E5E7EB; }
+    .btn-confirm-delete { background: #DC2626; color: #fff; }
+    .btn-confirm-delete:hover { background: #B91C1C; }
 
-    /* Push CMS content below warning banner */
-    body > div:not(.cms-warning-banner):not(.cms-confirm-overlay) {
-      margin-top: 36px !important;
-    }
-
-    #nc-root {
-      margin-top: 36px !important;
-    }
-
-    [class*="AppHeader"] {
-      top: 36px !important;
-    }
-
-    [class*="AppHeaderContent"] {
-      top: 36px !important;
-    }
+    #nc-root { margin-top: 36px !important; }
+    [class*="AppHeader"] { top: 36px !important; }
   </style>
 </head>
 <body>
 
-  <!-- Warning Banner -->
   <div class="cms-warning-banner" id="cmsBanner">
     <span class="warn-icon">!</span>
     <span class="warn-text">
@@ -168,14 +130,13 @@
     <button class="warn-dismiss" onclick="document.getElementById('cmsBanner').style.display='none'">Got it</button>
   </div>
 
-  <!-- Delete Confirmation Modal -->
   <div class="cms-confirm-overlay" id="deleteConfirmOverlay">
     <div class="cms-confirm-box">
       <div class="confirm-icon">⚠️</div>
       <h3>Permanently Delete Entry?</h3>
       <p>You are about to permanently delete this entry from your portfolio. This action <strong>cannot be undone</strong>.</p>
       <div class="confirm-note">
-        💡 If you only want to cancel unpublished changes, click "Cancel" and use "Delete unpublished changes" inside the entry instead.
+        💡 To cancel unpublished changes only, click "Cancel" and use "Delete unpublished changes" inside the entry instead.
       </div>
       <div class="cms-confirm-actions">
         <button class="btn-cancel-delete" id="cancelDeleteBtn">Cancel — Keep Entry</button>
@@ -184,11 +145,9 @@
     </div>
   </div>
 
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
   <script>
-    // Intercept delete button clicks
     let pendingDeleteBtn = null;
 
     function interceptDeleteButtons() {
@@ -210,13 +169,11 @@
       });
     }
 
-    // Cancel delete
     document.getElementById('cancelDeleteBtn').addEventListener('click', function() {
       document.getElementById('deleteConfirmOverlay').classList.remove('active');
       pendingDeleteBtn = null;
     });
 
-    // Confirm delete — remove intercept and click original button
     document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
       document.getElementById('deleteConfirmOverlay').classList.remove('active');
       if (pendingDeleteBtn) {
@@ -226,20 +183,12 @@
       }
     });
 
-    // Watch for new delete buttons appearing in the DOM
     const observer = new MutationObserver(function() {
       interceptDeleteButtons();
     });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-    // Initial scan
+    observer.observe(document.body, { childList: true, subtree: true });
     setTimeout(interceptDeleteButtons, 2000);
     setTimeout(interceptDeleteButtons, 4000);
-    setTimeout(interceptDeleteButtons, 6000);
   </script>
 
 </body>

@@ -1,7 +1,8 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: github
   repo: ammar-mufti/portfolio
+  branch: main
+  base_url: https://sveltia-cms-auth.netlify.app
 
 publish_mode: editorial_workflow
 
