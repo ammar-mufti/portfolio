@@ -122,7 +122,35 @@
       align-items: center;
       padding: 64px 24px;
     }
-    .hero-inner { max-width: 760px; }
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .hero-inner {
+      flex: 1;
+      max-width: 680px;
+    }
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      display: block;
+    }
     .hero-tag {
       display: inline-block;
       font-size: 13px;
@@ -411,9 +439,7 @@
       padding-bottom: 10px;
       border-bottom: 2px solid var(--border);
     }
-    .edu-item {
-      margin-bottom: 4px;
-    }
+    .edu-item { margin-bottom: 4px; }
     .edu-degree {
       font-size: 15px;
       font-weight: 700;
@@ -482,6 +508,22 @@
     .footer-links a:hover { color: #fff; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-container {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+      }
+      .hero-inner { max-width: 100%; }
+      .hero-ctas { justify-content: center; }
+      .hero-contacts { justify-content: center; }
+      .hero-oneliner { margin-left: auto; margin-right: auto; }
+      .hero-photo {
+        width: 160px;
+        height: 160px;
+      }
+    }
+
     @media (max-width: 768px) {
       section { padding: 48px 20px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -540,31 +582,41 @@
 
 <!-- ── HERO ── -->
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">Available for opportunities · UAE · Remote</div>
-    <h1 class="hero-name">Ammar Mufti<br>Mohammed</h1>
-    <p class="hero-subtitle">Technical Product Owner | Platform Delivery</p>
-    <p class="hero-oneliner">Turning complex platform challenges into seamless digital experiences.</p>
-    <div class="hero-ctas">
-      <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" download="Ammar-Mufti-Mohammed_TPO-Resume.pdf" class="btn btn-primary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Resume
-      </a>
-      <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" target="_blank" class="btn btn-outline">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        View Resume Online
-      </a>
+  <div class="hero-container">
+    <div class="hero-inner">
+      <div class="hero-tag">Available for opportunities · UAE · Remote</div>
+      <h1 class="hero-name">Ammar Mufti<br>Mohammed</h1>
+      <p class="hero-subtitle">Technical Product Owner | Platform Delivery</p>
+      <p class="hero-oneliner">Turning complex platform challenges into seamless digital experiences.</p>
+      <div class="hero-ctas">
+        <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" download="Ammar-Mufti-Mohammed_TPO-Resume.pdf" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume
+        </a>
+        <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" target="_blank" class="btn btn-outline">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Resume Online
+        </a>
+      </div>
+      <div class="hero-contacts">
+        <a href="mailto:muftiammar52@gmail.com" class="hero-email">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          muftiammar52@gmail.com
+        </a>
+        <div class="hero-divider"></div>
+        <a href="https://linkedin.com/in/ammarmufti" target="_blank" rel="noopener" class="hero-email">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/ammarmufti
+        </a>
+      </div>
     </div>
-    <div class="hero-contacts">
-      <a href="mailto:muftiammar52@gmail.com" class="hero-email">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        muftiammar52@gmail.com
-      </a>
-      <div class="hero-divider"></div>
-      <a href="https://linkedin.com/in/ammarmufti" target="_blank" rel="noopener" class="hero-email">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        linkedin.com/in/ammarmufti
-      </a>
+    <div class="hero-photo-wrap">
+      <img
+        src="Ammar-Photo.jpg"
+        alt="Ammar Mufti Mohammed"
+        class="hero-photo"
+        onerror="this.parentElement.style.display='none'"
+      />
     </div>
   </div>
 </section>
