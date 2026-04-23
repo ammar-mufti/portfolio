@@ -19,8 +19,19 @@ collections:
           - { label: "One Liner", name: "oneliner", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
-          - { label: "Resume Filename", name: "resume_filename", widget: "string" }
-          - { label: "Photo", name: "photo", widget: "string" }
+          - label: "Resume PDF"
+            name: "resume_filename"
+            widget: "file"
+            media_folder: "/"
+            public_folder: "/"
+            accept: ".pdf"
+            hint: "Upload your resume PDF here. File will be saved to the root folder."
+          - label: "Profile Photo"
+            name: "photo"
+            widget: "image"
+            media_folder: "/"
+            public_folder: "/"
+            hint: "Upload your profile photo here. File will be saved to the root folder."
 
   - name: "about"
     label: "About Me"
