@@ -99,7 +99,7 @@ collections:
         fields:
           - { label: "Degree", name: "degree", widget: "string" }
           - { label: "University", name: "university", widget: "string" }
-          - { label: "Period", name: "period", widget: "string" }
+          - { label: "Period", name: "period", widget: "string", required: false }
           - label: "Certifications"
             name: "certifications"
             widget: "list"
