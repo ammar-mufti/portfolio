@@ -593,37 +593,18 @@
   <div class="hero-container">
     <div class="hero-inner">
       <div class="hero-tag">Available for opportunities · UAE · Remote</div>
-      <h1 class="hero-name">Ammar Mufti<br>Mohammed</h1>
-      <p class="hero-subtitle">Technical Product Owner | Platform Delivery</p>
-      <p class="hero-oneliner">Turning complex platform challenges into seamless digital experiences.</p>
-      <div class="hero-ctas">
-        <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" download="Ammar-Mufti-Mohammed_TPO-Resume.pdf" class="btn btn-primary" onclick="gtag('event', 'resume_download', {'event_category': 'Resume', 'event_label': 'Download Resume'});">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Resume
-        </a>
-        <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" target="_blank" class="btn btn-outline" onclick="gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          View Resume Online
-        </a>
-      </div>
-      <div class="hero-contacts">
-        <a href="mailto:muftiammar52@gmail.com" class="hero-email">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          muftiammar52@gmail.com
-        </a>
-        <div class="hero-divider"></div>
-        <a href="https://linkedin.com/in/ammarmufti" target="_blank" rel="noopener" class="hero-email">
-          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          linkedin.com/in/ammarmufti
-        </a>
-      </div>
+      <h1 class="hero-name" id="hero-name"></h1>
+      <p class="hero-subtitle" id="hero-subtitle"></p>
+      <p class="hero-oneliner" id="hero-oneliner"></p>
+      <div class="hero-ctas" id="hero-ctas"></div>
+      <div class="hero-contacts" id="hero-contacts"></div>
     </div>
     <div class="hero-photo-wrap">
       <img
-        src="Ammar-Photo.jpg"
+        id="hero-photo"
+        src=""
         alt="Ammar Mufti Mohammed"
         class="hero-photo"
-        onerror="this.parentElement.style.display='none'"
       />
     </div>
   </div>
@@ -634,39 +615,10 @@
   <div class="container">
     <div class="section-label">About</div>
     <div class="about-grid">
-      <div class="about-text fade-in">
+      <div class="about-text fade-in" id="about-text">
         <h2 class="section-title" style="margin-bottom:24px;">About Me</h2>
-        <p>Technical Product Owner with deep expertise in delivering and optimizing customer-facing digital platforms in high-volume environments. Adept at translating complex business needs into clear product requirements, driving 95% user adoption within the first month of launch and improving operational efficiency by 30%. Skilled in UAT, URS, vendor coordination, and cross-functional collaboration, bridging business and technology teams to deliver reliable, high-impact digital solutions.</p>
-        <p>Based in the UAE, I bring a multilingual edge — fluent in English, native Amharic, and conversational Arabic — and a background shaped by working across diverse teams. I'm motivated by the intersection of people and technology: building products that actually work for the users they're meant to serve.</p>
       </div>
-      <div class="skills-block fade-in">
-        <div class="skills-label">Core Skills</div>
-        <div class="pill-group">
-          <span class="pill">Digital Platform Deployment &amp; Rollout</span>
-          <span class="pill">Product Lifecycle Management</span>
-          <span class="pill">URS &amp; UAT</span>
-          <span class="pill">Systems Integration</span>
-          <span class="pill">Performance Monitoring &amp; Reporting</span>
-          <span class="pill">Agile Backlog Support</span>
-          <span class="pill">Stakeholder Collaboration</span>
-          <span class="pill">SLA &amp; Incident Management</span>
-          <span class="pill">Training &amp; User Adoption</span>
-          <span class="pill">KYC &amp; Regulatory Compliance</span>
-          <span class="pill">Customer Journey Mapping</span>
-        </div>
-        <div class="skills-label">Tools &amp; Systems</div>
-        <div class="pill-group">
-          <span class="pill pill-sm">CRM &amp; Case Management Systems</span>
-          <span class="pill pill-sm">Digital Sales &amp; Distribution Platforms</span>
-          <span class="pill pill-sm">Mobile Financial Services (M-PESA)</span>
-          <span class="pill pill-sm">Ticketing &amp; Incident Management</span>
-          <span class="pill pill-sm">Agile &amp; Backlog Tools (Jira)</span>
-          <span class="pill pill-sm">Microsoft Office (Excel, PowerPoint, Outlook)</span>
-          <span class="pill pill-sm">Data Reporting</span>
-          <span class="pill pill-sm">API &amp; Integrations</span>
-          <span class="pill pill-sm">Database (working knowledge)</span>
-        </div>
-      </div>
+      <div class="skills-block fade-in" id="skills-block"></div>
     </div>
   </div>
 </section>
@@ -677,68 +629,7 @@
     <div class="section-label">Experience</div>
     <h2 class="section-title">Work History</h2>
     <p class="section-subtitle">5+ years across telecoms, fintech, and Broadcasting.</p>
-    <div class="timeline">
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot"></div>
-        <div class="timeline-meta">
-          <span class="timeline-role">Platform Delivery &amp; Support Specialist</span>
-          <span class="timeline-period">Nov 2024 – Mar 2026</span>
-        </div>
-        <div class="timeline-company"><span>Safaricom Telecommunications Ethiopia PLC</span> · Addis Ababa, Ethiopia</div>
-        <ul class="timeline-bullets">
-          <li>Delivered end-to-end digital platform rollouts by driving system readiness, executing deployments, and achieving 95% user adoption within the first month while improving operational efficiency by 30%</li>
-          <li>Managed end-to-end product lifecycle from ideation to launch, defining product vision and translating stakeholder insights into actionable, prioritized requirements for Agile development teams</li>
-          <li>Led the successful delivery of a digital product by coordinating the integration of multiple systems including CRM, payment platforms, Mobile App, Web App, and backend services, ensuring seamless data flow and end-to-end functionality</li>
-          <li>Acted as the bridge between business users, engineers, and external vendors to deliver and continuously enhance platforms while resolving system performance issues within SLA</li>
-          <li>Executed UAT and supported go-live activities to ensure smooth deployments with minimal disruption, while tracking platform performance and driving data-informed operational improvements</li>
-          <li>Designed and delivered training workshops and end-user guides for 200+ users, significantly enhancing platform usability and sustained adoption</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot"></div>
-        <div class="timeline-meta">
-          <span class="timeline-role">Retail Experience Executive</span>
-          <span class="timeline-period">Jul 2022 – Nov 2024</span>
-        </div>
-        <div class="timeline-company"><span>Safaricom Telecommunications Ethiopia PLC</span> · Addis Ababa, Ethiopia</div>
-        <ul class="timeline-bullets">
-          <li>Managed 50+ daily customer interactions, delivering end-to-end support across Telecom and M-PESA services including onboarding, account updates, transactions, and payments</li>
-          <li>Drove sales performance by identifying customer needs and executing up-selling and cross-selling strategies to consistently exceed 100% of monthly targets across Consumer and Enterprise segments</li>
-          <li>Maintained 100% KYC compliance, resolved customer issues within SLA timelines, and managed inventory with full system-to-stock alignment</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot"></div>
-        <div class="timeline-meta">
-          <span class="timeline-role">Sales Operations Support Team Lead</span>
-          <span class="timeline-period">Nov 2021 – Jun 2022</span>
-        </div>
-        <div class="timeline-company"><span>MultiChoice Ethiopia</span> · Addis Ababa, Ethiopia</div>
-        <ul class="timeline-bullets">
-          <li>Led a team supporting 50+ field sales agents, ensuring efficient system usage, operational coordination, and SLA compliance for escalated issue resolution</li>
-          <li>Developed tracking mechanisms for decoder sales, activations, and team tasks, enhancing performance monitoring and operational visibility</li>
-          <li>Trained 10+ team members and field agents on platform usage and operational procedures, and reduced payment errors by improving subscription payment processes</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-dot"></div>
-        <div class="timeline-meta">
-          <span class="timeline-role">Customer Service Representative</span>
-          <span class="timeline-period">Aug 2020 – Nov 2021</span>
-        </div>
-        <div class="timeline-company"><span>MultiChoice Ethiopia</span> · Addis Ababa, Ethiopia</div>
-        <ul class="timeline-bullets">
-          <li>Assisted 80+ customers daily with service requests, account support, and product inquiries, maintaining high service standards and resolving complaints efficiently</li>
-          <li>Trained and mentored new staff on service procedures and best practices, improving onboarding consistency and service quality across the team</li>
-          <li>Processed subscription payments, issued receipts, and managed sales inventory with 100% alignment between system records and physical stock</li>
-        </ul>
-      </div>
-
-    </div>
+    <div class="timeline" id="timeline"></div>
   </div>
 </section>
 
@@ -748,149 +639,7 @@
     <div class="section-label">Proof of Work</div>
     <h2 class="section-title">Proof of Work</h2>
     <p class="section-subtitle">Client-facing delivery evidence from platform engagements at Safaricom Ethiopia.</p>
-    <div class="work-grid">
-
-      <div class="project-card fade-in">
-        <div class="project-title">Sales Agent-to-Merchant Assignment Engine</div>
-        <div class="project-desc">Geo-fenced, OTP-verified agent-to-merchant mapping platform with conditional approval logic across three integrated systems.</div>
-        <div class="project-tags">
-          <span class="project-tag">Platform Delivery</span>
-          <span class="project-tag">Approval Workflows</span>
-          <span class="project-tag">Systems Integration</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'Sales Agent-to-Merchant Assignment Engine'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" download="Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'Sales Agent-to-Merchant Assignment Engine'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">Field Agent Onboarding Platform</div>
-        <div class="project-desc">End-to-end onboarding specification across web and mobile channels, covering six role types, three integrated systems, and a legacy migration workflow.</div>
-        <div class="project-tags">
-          <span class="project-tag">Onboarding</span>
-          <span class="project-tag">Multi-System Integration</span>
-          <span class="project-tag">Role-Based Access</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'Field Agent Onboarding Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" download="Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'Field Agent Onboarding Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">Customer Onboarding eKYC Platform &amp; NID Integration</div>
-        <div class="project-desc">Six customer-facing identity journeys rebuilt around a national ID verification system, with a four-permutation ownership transfer matrix.</div>
-        <div class="project-tags">
-          <span class="project-tag">eKYC</span>
-          <span class="project-tag">Regulatory Compliance</span>
-          <span class="project-tag">Identity Verification</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'Customer Onboarding eKYC Platform & NID Integration'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" download="eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'Customer Onboarding eKYC Platform & NID Integration'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">GPS-Verified Field Activity Tracking</div>
-        <div class="project-desc">Full specification for a GPS-verified field activity system — gate meetings, market visits, 50m dual-device attendance confirmation, and a real-time territory dashboard.</div>
-        <div class="project-tags">
-          <span class="project-tag">SFA</span>
-          <span class="project-tag">GPS Verification</span>
-          <span class="project-tag">Field Ops</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'GPS-Verified Field Activity Tracking'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" download="SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'GPS-Verified Field Activity Tracking'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">KPI Reporting &amp; Field Analytics Platform</div>
-        <div class="project-desc">Specification for real-time sales and operational KPI dashboards with hierarchical drill-down across national, regional, territory, and agent levels.</div>
-        <div class="project-tags">
-          <span class="project-tag">KPI Reporting</span>
-          <span class="project-tag">Dashboards</span>
-          <span class="project-tag">Performance Monitoring</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'KPI Reporting & Field Analytics Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf" download="KPI_Reporting_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'KPI Reporting & Field Analytics Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">Field Team Engagement Platform</div>
-        <div class="project-desc">Three-module platform specification covering in-app notifications, training manual hub, and survey builder with conditional branching logic across mobile and web channels.</div>
-        <div class="project-tags">
-          <span class="project-tag">EngageHub</span>
-          <span class="project-tag">Notifications</span>
-          <span class="project-tag">Survey Design</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'Field Team Engagement Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" download="EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'Field Team Engagement Platform'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-title">Purchase Order &amp; Inventory Management</div>
-        <div class="project-desc">Vendor-to-in-house migration specification covering four fulfilment pipelines, ERP integration, smart retry logic, and inventory chain of custody — net-new capabilities not available in the previous vendor system.</div>
-        <div class="project-tags">
-          <span class="project-tag">PO Management</span>
-          <span class="project-tag">ERP Integration</span>
-          <span class="project-tag">Inventory</span>
-        </div>
-        <div class="project-actions">
-          <a href="projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': 'Purchase Order & Inventory Management'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            View
-          </a>
-          <a href="projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" download="PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': 'Purchase Order & Inventory Management'});">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </a>
-        </div>
-      </div>
-
-    </div>
+    <div class="work-grid" id="work-grid"></div>
     <p class="work-notice">All documents are redacted delivery artefacts. Contact me to discuss any project in detail.</p>
   </div>
 </section>
@@ -900,33 +649,7 @@
   <div class="container">
     <div class="section-label">Background</div>
     <h2 class="section-title">Education &amp; Certifications</h2>
-    <div class="edu-grid fade-in">
-      <div>
-        <div class="edu-block-title">Education</div>
-        <div class="edu-item">
-          <div class="edu-degree">Bachelor of Arts in Sociology</div>
-          <div class="edu-school">Mekelle University, Ethiopia</div>
-          <div class="edu-period"></div>
-        </div>
-      </div>
-      <div>
-        <div class="edu-block-title">Certifications</div>
-        <div>
-          <div class="cert-pill">
-            <span class="cert-name">Digital Product Management</span>
-            <span class="cert-issuer">Alison</span>
-          </div>
-          <div class="cert-pill">
-            <span class="cert-name">Professional Foundations</span>
-            <span class="cert-issuer">ALX</span>
-          </div>
-          <div class="cert-pill">
-            <span class="cert-name">AWS Cloud Computing</span>
-            <span class="cert-issuer">ALX</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="edu-grid fade-in" id="edu-grid"></div>
   </div>
 </section>
 
@@ -971,16 +694,165 @@
   sections.forEach(s => observer.observe(s));
 
   // ── Fade-in on scroll ──
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const fadeObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  fadeEls.forEach(el => fadeObserver.observe(el));
+  function reinitFadeIn() {
+    const fadeEls = document.querySelectorAll('.fade-in:not(.visible)');
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
+  }
+  reinitFadeIn();
+
+  // ── Escape HTML helper ──
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ── Render Hero ──
+  function renderHero(h) {
+    const nameParts = h.name.split(' ');
+    const mid = Math.ceil(nameParts.length / 2);
+    const line1 = nameParts.slice(0, mid).join(' ');
+    const line2 = nameParts.slice(mid).join(' ');
+    document.getElementById('hero-name').innerHTML = esc(line1) + '<br>' + esc(line2);
+    document.getElementById('hero-subtitle').textContent = h.title;
+    document.getElementById('hero-oneliner').textContent = h.oneliner;
+
+    document.getElementById('hero-ctas').innerHTML = `
+      <a href="${esc(h.resume_filename)}" download="${esc(h.resume_filename)}" class="btn btn-primary" onclick="gtag('event', 'resume_download', {'event_category': 'Resume', 'event_label': 'Download Resume'});">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+      <a href="${esc(h.resume_filename)}" target="_blank" class="btn btn-outline" onclick="gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Resume Online
+      </a>`;
+
+    document.getElementById('hero-contacts').innerHTML = `
+      <a href="mailto:${esc(h.email)}" class="hero-email">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        ${esc(h.email)}
+      </a>
+      <div class="hero-divider"></div>
+      <a href="${esc(h.linkedin)}" target="_blank" rel="noopener" class="hero-email">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        ${esc(h.linkedin.replace(/^https?:\/\//, ''))}
+      </a>`;
+
+    const photo = document.getElementById('hero-photo');
+    photo.onerror = () => photo.parentElement.style.display = 'none';
+    photo.src = h.photo;
+  }
+
+  // ── Render About ──
+  function renderAbout(a) {
+    const textEl = document.getElementById('about-text');
+    textEl.innerHTML = `
+      <h2 class="section-title" style="margin-bottom:24px;">About Me</h2>
+      <p>${esc(a.summary)}</p>
+      <p>${esc(a.summary2)}</p>`;
+
+    const skillsEl = document.getElementById('skills-block');
+    const corePills = a.core_skills.map(s => `<span class="pill">${esc(s)}</span>`).join('');
+    const toolPills = a.tools.map(t => `<span class="pill pill-sm">${esc(t)}</span>`).join('');
+    skillsEl.innerHTML = `
+      <div class="skills-label">Core Skills</div>
+      <div class="pill-group">${corePills}</div>
+      <div class="skills-label">Tools &amp; Systems</div>
+      <div class="pill-group">${toolPills}</div>`;
+  }
+
+  // ── Render Experience ──
+  function renderExperience(exp) {
+    const roles = exp.roles || exp;
+    const html = roles.map((role, i) => `
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-role">${esc(role.title)}</span>
+          <span class="timeline-period">${esc(role.period)}</span>
+        </div>
+        <div class="timeline-company"><span>${esc(role.company)}</span> · ${esc(role.location)}</div>
+        <ul class="timeline-bullets">
+          ${role.bullets.map(b => `<li>${esc(b)}</li>`).join('')}
+        </ul>
+      </div>`).join('');
+    document.getElementById('timeline').innerHTML = html;
+  }
+
+  // ── Render Projects ──
+  function renderProjects(projects) {
+    const html = projects.map(p => {
+      const tags = p.tags.map(t => `<span class="project-tag">${esc(t)}</span>`).join('');
+      const label = esc(p.title);
+      const fileName = esc(p.file.split('/').pop());
+      return `
+      <div class="project-card fade-in">
+        <div class="project-title">${esc(p.title)}</div>
+        <div class="project-desc">${esc(p.description)}</div>
+        <div class="project-tags">${tags}</div>
+        <div class="project-actions">
+          <a href="${esc(p.file)}" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="${esc(p.file)}" download="${fileName}" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById('work-grid').innerHTML = html;
+  }
+
+  // ── Render Education ──
+  function renderEducation(edu) {
+    const certs = edu.certifications.map(c => `
+      <div class="cert-pill">
+        <span class="cert-name">${esc(c.name)}</span>
+        <span class="cert-issuer">${esc(c.issuer)}</span>
+      </div>`).join('');
+
+    document.getElementById('edu-grid').innerHTML = `
+      <div>
+        <div class="edu-block-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">${esc(edu.degree)}</div>
+          <div class="edu-school">${esc(edu.university)}</div>
+          <div class="edu-period">${esc(edu.period || '')}</div>
+        </div>
+      </div>
+      <div>
+        <div class="edu-block-title">Certifications</div>
+        <div>${certs}</div>
+      </div>`;
+  }
+
+  // ── Fetch all data and render ──
+  Promise.all([
+    fetch('./data/hero.json').then(r => r.json()),
+    fetch('./data/about.json').then(r => r.json()),
+    fetch('./data/experience.json').then(r => r.json()),
+    fetch('./data/projects.json').then(r => r.json()),
+    fetch('./data/education.json').then(r => r.json())
+  ]).then(([hero, about, experience, projects, education]) => {
+    renderHero(hero);
+    renderAbout(about);
+    renderExperience(experience);
+    renderProjects(projects);
+    renderEducation(education);
+    reinitFadeIn();
+  }).catch(err => console.error('Failed to load portfolio data:', err));
 </script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </body>

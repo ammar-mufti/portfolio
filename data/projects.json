@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Sales Agent-to-Merchant Assignment Engine",
+    "description": "Geo-fenced, OTP-verified agent-to-merchant mapping platform with conditional approval logic across three integrated systems.",
+    "tags": ["Platform Delivery", "Approval Workflows", "Systems Integration"],
+    "file": "projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "Field Agent Onboarding Platform",
+    "description": "End-to-end onboarding specification across web and mobile channels, covering six role types, three integrated systems, and a legacy migration workflow.",
+    "tags": ["Onboarding", "Multi-System Integration", "Role-Based Access"],
+    "file": "projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "Customer Onboarding eKYC Platform & NID Integration",
+    "description": "Six customer-facing identity journeys rebuilt around a national ID verification system, with a four-permutation ownership transfer matrix.",
+    "tags": ["eKYC", "Regulatory Compliance", "Identity Verification"],
+    "file": "projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "GPS-Verified Field Activity Tracking",
+    "description": "Full specification for a GPS-verified field activity system — gate meetings, market visits, 50m dual-device attendance confirmation, and a real-time territory dashboard.",
+    "tags": ["SFA", "GPS Verification", "Field Ops"],
+    "file": "projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "KPI Reporting & Field Analytics Platform",
+    "description": "Specification for real-time sales and operational KPI dashboards with hierarchical drill-down across national, regional, territory, and agent levels.",
+    "tags": ["KPI Reporting", "Dashboards", "Performance Monitoring"],
+    "file": "projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "Field Team Engagement Platform",
+    "description": "Three-module platform specification covering in-app notifications, training manual hub, and survey builder with conditional branching logic across mobile and web channels.",
+    "tags": ["EngageHub", "Notifications", "Survey Design"],
+    "file": "projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf"
+  },
+  {
+    "title": "Purchase Order & Inventory Management",
+    "description": "Vendor-to-in-house migration specification covering four fulfilment pipelines, ERP integration, smart retry logic, and inventory chain of custody.",
+    "tags": ["PO Management", "ERP Integration", "Inventory"],
+    "file": "projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf"
+  }
+]
