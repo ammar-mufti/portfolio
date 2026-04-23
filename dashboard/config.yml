@@ -2,7 +2,7 @@ backend:
   name: github
   repo: ammar-mufti/portfolio
   branch: main
-  base_url: https://sveltia-cms-auth.netlify.app
+  base_url: https://cms-auth.muftiammar52.workers.dev
 
 publish_mode: editorial_workflow
 
