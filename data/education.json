@@ -1,10 +1,19 @@
 {
   "degree": "Bachelor of Arts in Sociology",
   "university": "Mekelle University, Ethiopia",
-  "period": "Oct 2016 – Jul 2019",
+  "period": " ",
   "certifications": [
-    { "name": "Digital Product Management", "issuer": "Alison" },
-    { "name": "Professional Foundations", "issuer": "ALX" },
-    { "name": "AWS Cloud Computing", "issuer": "ALX" }
+    {
+      "name": "Digital Product Management",
+      "issuer": "Alison"
+    },
+    {
+      "name": "Professional Foundations",
+      "issuer": "ALX"
+    },
+    {
+      "name": "AWS Cloud Computing",
+      "issuer": "ALX"
+    }
   ]
 }
