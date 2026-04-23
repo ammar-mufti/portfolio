@@ -1,0 +1,94 @@
+backend:
+  name: github
+  repo: ammar-mufti/portfolio
+  branch: main
+  base_url: https://sveltia-cms-auth.netlify.app
+
+media_folder: "projects"
+public_folder: "projects"
+
+collections:
+  - name: "hero"
+    label: "Hero Section"
+    files:
+      - label: "Hero Content"
+        name: "hero"
+        file: "data/hero.json"
+        fields:
+          - { label: "Full Name", name: "name", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "One Liner", name: "oneliner", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
+          - { label: "Resume Filename", name: "resume_filename", widget: "string" }
+          - { label: "Photo", name: "photo", widget: "string" }
+
+  - name: "about"
+    label: "About Me"
+    files:
+      - label: "About Content"
+        name: "about"
+        file: "data/about.json"
+        fields:
+          - { label: "Summary Paragraph", name: "summary", widget: "text" }
+          - { label: "Second Paragraph", name: "summary2", widget: "text" }
+          - label: "Core Skills"
+            name: "core_skills"
+            widget: "list"
+            field: { label: "Skill", name: "skill", widget: "string" }
+          - label: "Tools & Systems"
+            name: "tools"
+            widget: "list"
+            field: { label: "Tool", name: "tool", widget: "string" }
+
+  - name: "experience"
+    label: "Experience"
+    files:
+      - label: "Experience Content"
+        name: "experience"
+        file: "data/experience.json"
+        fields:
+          - label: "Roles"
+            name: "roles"
+            widget: "list"
+            fields:
+              - { label: "Job Title", name: "title", widget: "string" }
+              - { label: "Company", name: "company", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Period", name: "period", widget: "string" }
+              - label: "Bullets"
+                name: "bullets"
+                widget: "list"
+                field: { label: "Bullet", name: "bullet", widget: "string" }
+
+  - name: "projects"
+    label: "Proof of Work"
+    folder: "data/projects"
+    create: true
+    delete: true
+    identifier_field: "title"
+    fields:
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects" }
+
+  - name: "education"
+    label: "Education & Certifications"
+    files:
+      - label: "Education Content"
+        name: "education"
+        file: "data/education.json"
+        fields:
+          - { label: "Degree", name: "degree", widget: "string" }
+          - { label: "University", name: "university", widget: "string" }
+          - { label: "Period", name: "period", widget: "string" }
+          - label: "Certifications"
+            name: "certifications"
+            widget: "list"
+            fields:
+              - { label: "Certificate Name", name: "name", widget: "string" }
+              - { label: "Issuer", name: "issuer", widget: "string" }
