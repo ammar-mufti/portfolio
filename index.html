@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ammar Mufti Mohammed — Technical Product Owner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --navy: #1A1A2E;
+      --blue: #4F8EF7;
+      --text: #2D2D2D;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --radius-card: 8px;
+      --radius-btn: 6px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,250,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--navy); }
+    .nav-links a.active { border-bottom: 2px solid var(--blue); padding-bottom: 2px; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    /* ── LAYOUT ── */
+    section { padding: 64px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      padding: 64px 24px;
+    }
+    .hero-inner { max-width: 760px; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      background: rgba(79,142,247,0.08);
+      border: 1px solid rgba(79,142,247,0.2);
+      border-radius: var(--radius-btn);
+      padding: 4px 12px;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+    .hero-name {
+      font-size: clamp(36px, 7vw, 64px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .hero-oneliner {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text);
+      margin-bottom: 40px;
+      max-width: 560px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.18s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #2a2a4a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,26,46,0.2); }
+    .btn-outline {
+      background: var(--surface);
+      color: var(--navy);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--navy); transform: translateY(-1px); box-shadow: var(--shadow); }
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .hero-email:hover { color: var(--blue); }
+    .hero-email svg { flex-shrink: 0; }
+    .hero-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+    }
+
+    /* ── FADE-IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about-text p { color: var(--text); margin-bottom: 20px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .skills-block { margin-top: 0; }
+    .skills-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: var(--radius-btn);
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(79,142,247,0.08);
+      color: var(--navy);
+      border: 1px solid rgba(79,142,247,0.18);
+    }
+    .pill-sm {
+      padding: 4px 10px;
+      font-size: 12px;
+      background: #F3F4F6;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--blue);
+    }
+    .timeline-item:first-child .timeline-dot { background: var(--blue); }
+    .timeline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 16px;
+      margin-bottom: 6px;
+    }
+    .timeline-role {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .timeline-period {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      background: rgba(79,142,247,0.07);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .timeline-company {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .timeline-company span { color: var(--text); }
+    .timeline-bullets {
+      padding-left: 18px;
+      color: var(--text);
+      max-width: 900px;
+    }
+    .timeline-bullets li {
+      font-size: 14px;
+      margin-bottom: 6px;
+      line-height: 1.55;
+    }
+    .timeline-bullets li:last-child { margin-bottom: 0; }
+
+    /* ── PROOF OF WORK ── */
+    #work { background: var(--surface); }
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .project-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .project-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      flex: 1;
+      line-height: 1.55;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .project-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: rgba(79,142,247,0.08);
+      color: var(--blue);
+      border: 1px solid rgba(79,142,247,0.18);
+      letter-spacing: 0.02em;
+    }
+    .project-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-card {
+      flex: 1;
+      justify-content: center;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+    .work-notice {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 24px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .edu-block-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .edu-item {
+      margin-bottom: 4px;
+    }
+    .edu-degree {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .edu-school {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .edu-period {
+      font-size: 13px;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .cert-pill {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 10px 16px;
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+      margin-right: 10px;
+    }
+    .cert-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .cert-issuer {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 14px; }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      transition: color 0.18s;
+      display: flex;
+      align-items: center;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section { padding: 48px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        flex-direction: column;
+        padding: 16px 24px 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--border); }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a {
+        display: block;
+        padding: 14px 0;
+        font-size: 15px;
+      }
+      .nav-links a.active { border-bottom: none; color: var(--blue); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .project-actions { flex-direction: column; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-name">Ammar Mufti Mohammed</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Available for opportunities · UAE · Remote</div>
+    <h1 class="hero-name">Ammar Mufti<br>Mohammed</h1>
+    <p class="hero-subtitle">Technical Product Owner | Platform Delivery</p>
+    <p class="hero-oneliner">Turning complex platform challenges into seamless digital experiences.</p>
+    <div class="hero-ctas">
+      <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" download="Ammar-Mufti-Mohammed_TPO-Resume.pdf" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume
+      </a>
+      <a href="Ammar-Mufti-Mohammed_TPO-Resume.pdf" target="_blank" class="btn btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View Resume Online
+      </a>
+    </div>
+    <div class="hero-contacts">
+      <a href="mailto:muftiammar52@gmail.com" class="hero-email">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        muftiammar52@gmail.com
+      </a>
+      <div class="hero-divider"></div>
+      <a href="https://linkedin.com/in/ammarmufti" target="_blank" rel="noopener" class="hero-email">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/ammarmufti
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <h2 class="section-title" style="margin-bottom:24px;">About Me</h2>
+        <p>Technical Product Owner with deep expertise in delivering and optimizing customer-facing digital platforms in high-volume environments. Adept at translating complex business needs into clear product requirements, driving 95% user adoption within the first month of launch and improving operational efficiency by 30%. Skilled in UAT, URS, vendor coordination, and cross-functional collaboration, bridging business and technology teams to deliver reliable, high-impact digital solutions.</p>
+        <p>Based in the UAE, I bring a multilingual edge — fluent in English, native Amharic, and conversational Arabic — and a background shaped by working across diverse teams. I'm motivated by the intersection of people and technology: building products that actually work for the users they're meant to serve.</p>
+      </div>
+      <div class="skills-block fade-in">
+        <div class="skills-label">Core Skills</div>
+        <div class="pill-group">
+          <span class="pill">Digital Platform Deployment &amp; Rollout</span>
+          <span class="pill">Product Lifecycle Management</span>
+          <span class="pill">URS &amp; UAT</span>
+          <span class="pill">Systems Integration</span>
+          <span class="pill">Performance Monitoring &amp; Reporting</span>
+          <span class="pill">Agile Backlog Support</span>
+          <span class="pill">Stakeholder Collaboration</span>
+          <span class="pill">SLA &amp; Incident Management</span>
+          <span class="pill">Training &amp; User Adoption</span>
+          <span class="pill">KYC &amp; Regulatory Compliance</span>
+          <span class="pill">Customer Journey Mapping</span>
+        </div>
+        <div class="skills-label">Tools &amp; Systems</div>
+        <div class="pill-group">
+          <span class="pill pill-sm">CRM &amp; Case Management Systems</span>
+          <span class="pill pill-sm">Digital Sales &amp; Distribution Platforms</span>
+          <span class="pill pill-sm">Mobile Financial Services (M-PESA)</span>
+          <span class="pill pill-sm">Ticketing &amp; Incident Management</span>
+          <span class="pill pill-sm">Agile &amp; Backlog Tools (Jira)</span>
+          <span class="pill pill-sm">Microsoft Office (Excel, PowerPoint, Outlook)</span>
+          <span class="pill pill-sm">Data Reporting</span>
+          <span class="pill pill-sm">API &amp; Integrations</span>
+          <span class="pill pill-sm">Database (working knowledge)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Work History</h2>
+    <p class="section-subtitle">5+ years across telecoms, fintech, and Brodcasting.</p>
+    <div class="timeline">
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-role">Platform Delivery &amp; Support Specialist</span>
+          <span class="timeline-period">Nov 2024 – Mar 2026</span>
+        </div>
+        <div class="timeline-company"><span>Safaricom Telecommunications Ethiopia PLC</span> · Addis Ababa, Ethiopia</div>
+        <ul class="timeline-bullets">
+          <li>Delivered end-to-end digital platform rollouts by driving system readiness, executing deployments, and achieving 95% user adoption within the first month while improving operational efficiency by 30%</li>
+          <li>Managed end-to-end product lifecycle from ideation to launch, defining product vision and translating stakeholder insights into actionable, prioritized requirements for Agile development teams</li>
+          <li>Led the successful delivery of a digital product by coordinating the integration of multiple systems including CRM, payment platforms, Mobile App, Web App, and backend services, ensuring seamless data flow and end-to-end functionality</li>
+          <li>Acted as the bridge between business users, engineers, and external vendors to deliver and continuously enhance platforms while resolving system performance issues within SLA</li>
+          <li>Executed UAT and supported go-live activities to ensure smooth deployments with minimal disruption, while tracking platform performance and driving data-informed operational improvements</li>
+          <li>Designed and delivered training workshops and end-user guides for 200+ users, significantly enhancing platform usability and sustained adoption</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-role">Retail Experience Executive</span>
+          <span class="timeline-period">Jul 2022 – Nov 2024</span>
+        </div>
+        <div class="timeline-company"><span>Safaricom Telecommunications Ethiopia PLC</span> · Addis Ababa, Ethiopia</div>
+        <ul class="timeline-bullets">
+          <li>Managed 50+ daily customer interactions, delivering end-to-end support across Telecom and M-PESA services including onboarding, account updates, transactions, and payments</li>
+          <li>Drove sales performance by identifying customer needs and executing up-selling and cross-selling strategies to consistently exceed 100% of monthly targets across Consumer and Enterprise segments</li>
+          <li>Maintained 100% KYC compliance, resolved customer issues within SLA timelines, and managed inventory with full system-to-stock alignment</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-role">Sales Operations Support Team Lead</span>
+          <span class="timeline-period">Nov 2021 – Jun 2022</span>
+        </div>
+        <div class="timeline-company"><span>MultiChoice Ethiopia</span> · Addis Ababa, Ethiopia</div>
+        <ul class="timeline-bullets">
+          <li>Led a team supporting 50+ field sales agents, ensuring efficient system usage, operational coordination, and SLA compliance for escalated issue resolution</li>
+          <li>Developed tracking mechanisms for decoder sales, activations, and team tasks, enhancing performance monitoring and operational visibility</li>
+          <li>Trained 10+ team members and field agents on platform usage and operational procedures, and reduced payment errors by improving subscription payment processes</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-role">Customer Service Representative</span>
+          <span class="timeline-period">Aug 2020 – Nov 2021</span>
+        </div>
+        <div class="timeline-company"><span>MultiChoice Ethiopia</span> · Addis Ababa, Ethiopia</div>
+        <ul class="timeline-bullets">
+          <li>Assisted 80+ customers daily with service requests, account support, and product inquiries, maintaining high service standards and resolving complaints efficiently</li>
+          <li>Trained and mentored new staff on service procedures and best practices, improving onboarding consistency and service quality across the team</li>
+          <li>Processed subscription payments, issued receipts, and managed sales inventory with 100% alignment between system records and physical stock</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF OF WORK ── -->
+<section id="work">
+  <div class="container">
+    <div class="section-label">Proof of Work</div>
+    <h2 class="section-title">Proof of Work</h2>
+    <p class="section-subtitle">Client-facing delivery evidence from platform engagements at Safaricom Ethiopia.</p>
+    <div class="work-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-title">Sales Agent-to-Merchant Assignment Engine</div>
+        <div class="project-desc">Geo-fenced, OTP-verified agent-to-merchant mapping platform with conditional approval logic across three integrated systems.</div>
+        <div class="project-tags">
+          <span class="project-tag">Platform Delivery</span>
+          <span class="project-tag">Approval Workflows</span>
+          <span class="project-tag">Systems Integration</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" download="Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">Field Agent Onboarding Platform</div>
+        <div class="project-desc">End-to-end onboarding specification across web and mobile channels, covering six role types, three integrated systems, and a legacy migration workflow.</div>
+        <div class="project-tags">
+          <span class="project-tag">Onboarding</span>
+          <span class="project-tag">Multi-System Integration</span>
+          <span class="project-tag">Role-Based Access</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" download="Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">Customer Onboarding eKYC Platform &amp; NID Integration</div>
+        <div class="project-desc">Six customer-facing identity journeys rebuilt around a national ID verification system, with a four-permutation ownership transfer matrix.</div>
+        <div class="project-tags">
+          <span class="project-tag">eKYC</span>
+          <span class="project-tag">Regulatory Compliance</span>
+          <span class="project-tag">Identity Verification</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" download="eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">GPS-Verified Field Activity Tracking</div>
+        <div class="project-desc">Full specification for a GPS-verified field activity system — gate meetings, market visits, 50m dual-device attendance confirmation, and a real-time territory dashboard.</div>
+        <div class="project-tags">
+          <span class="project-tag">SFA</span>
+          <span class="project-tag">GPS Verification</span>
+          <span class="project-tag">Field Ops</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" download="SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">KPI Reporting &amp; Field Analytics Platform</div>
+        <div class="project-desc">Specification for real-time sales and operational KPI dashboards with hierarchical drill-down across national, regional, territory, and agent levels.</div>
+        <div class="project-tags">
+          <span class="project-tag">KPI Reporting</span>
+          <span class="project-tag">Dashboards</span>
+          <span class="project-tag">Performance Monitoring</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf" download="KPI_Reporting_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">Field Team Engagement Platform</div>
+        <div class="project-desc">Three-module platform specification covering in-app notifications, training manual hub, and survey builder with conditional branching logic across mobile and web channels.</div>
+        <div class="project-tags">
+          <span class="project-tag">EngageHub</span>
+          <span class="project-tag">Notifications</span>
+          <span class="project-tag">Survey Design</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" download="EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-title">Purchase Order &amp; Inventory Management</div>
+        <div class="project-desc">Vendor-to-in-house migration specification covering four fulfilment pipelines, ERP integration, smart retry logic, and inventory chain of custody — net-new capabilities not available in the previous vendor system.</div>
+        <div class="project-tags">
+          <span class="project-tag">PO Management</span>
+          <span class="project-tag">ERP Integration</span>
+          <span class="project-tag">Inventory</span>
+        </div>
+        <div class="project-actions">
+          <a href="projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" target="_blank" class="btn btn-primary btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </a>
+          <a href="projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" download="PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf" class="btn btn-outline btn-card">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <p class="work-notice">All documents are redacted delivery artefacts. Contact me to discuss any project in detail.</p>
+  </div>
+</section>
+
+<!-- ── EDUCATION & CERTIFICATIONS ── -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Background</div>
+    <h2 class="section-title">Education &amp; Certifications</h2>
+    <div class="edu-grid fade-in">
+      <div>
+        <div class="edu-block-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Arts in Sociology</div>
+          <div class="edu-school">Mekelle University, Ethiopia</div>
+          <div class="edu-period"></div>
+        </div>
+      </div>
+      <div>
+        <div class="edu-block-title">Certifications</div>
+        <div>
+          <div class="cert-pill">
+            <span class="cert-name">Digital Product Management</span>
+            <span class="cert-issuer">Alison</span>
+          </div>
+          <div class="cert-pill">
+            <span class="cert-name">Professional Foundations</span>
+            <span class="cert-issuer">ALX</span>
+          </div>
+          <div class="cert-pill">
+            <span class="cert-name">AWS Cloud Computing</span>
+            <span class="cert-issuer">ALX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">&copy; 2026 Ammar Mufti Mohammed</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/ammarmufti" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="mailto:muftiammar52@gmail.com" aria-label="Email">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Hamburger menu ──
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // ── Active nav link on scroll ──
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // ── Fade-in on scroll ──
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => fadeObserver.observe(el));
+</script>
+</body>
+</html>
