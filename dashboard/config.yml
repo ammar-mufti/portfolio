@@ -4,6 +4,8 @@ backend:
   branch: main
   base_url: https://cms-auth.muftiammar52.workers.dev
 
+publish_mode: editorial_workflow
+
 media_folder: "projects"
 public_folder: "projects"
 
