@@ -322,9 +322,10 @@
     document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
       document.getElementById('deleteConfirmOverlay').classList.remove('active');
       if (pendingDeleteBtn) {
-        pendingDeleteBtn.dataset.intercepted = 'false';
-        pendingDeleteBtn.click();
+        const btn = pendingDeleteBtn;
         pendingDeleteBtn = null;
+        btn.removeAttribute('data-intercepted');
+        setTimeout(() => btn.click(), 100);
       }
     });
 
