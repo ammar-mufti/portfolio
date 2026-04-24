@@ -80,6 +80,7 @@ collections:
     create: true
     delete: true
     identifier_field: "title"
+    summary: "{{title}} — {{date}}"
     extension: "md"
     format: "frontmatter"
     fields:
@@ -89,8 +90,9 @@ collections:
         name: "tags"
         widget: "list"
         field: { label: "Tag", name: "tag", widget: "string" }
-      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", hint: "Upload PDF file only" }
+      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", accept: [".pdf"], hint: "⚠️ PDF files only. Other formats will be rejected." }
       - { label: "Visible on site", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this project without deleting it" }
+      - { label: "Date Added/Updated", name: "date", widget: "datetime", default: "", date_format: "DD MMM YYYY", time_format: false, hint: "Set the date this project was added or last updated." }
 
   - name: "education"
     label: "Education & Certifications"
