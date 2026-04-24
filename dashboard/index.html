@@ -504,21 +504,7 @@
     }
 
     function connectGA() {
-      const popup = window.open(
-        'https://cms-auth.muftiammar52.workers.dev/ga-auth',
-        'ga-auth',
-        'width=500,height=600'
-      );
-
-      window.addEventListener('message', function(event) {
-        if (event.origin !== 'https://cms-auth.muftiammar52.workers.dev') return;
-        if (event.data && event.data.type === 'ga_token') {
-          localStorage.setItem('ga_access_token', event.data.token);
-          localStorage.setItem('ga_token_expiry', event.data.expiry);
-          if (popup) popup.close();
-          loadGAStats();
-        }
-      }, { once: true });
+      window.location.href = 'https://cms-auth.muftiammar52.workers.dev/ga-auth';
     }
 
     function disconnectGA() {
@@ -526,6 +512,25 @@
       localStorage.removeItem('ga_token_expiry');
       loadGAStats();
     }
+
+    // Check for GA token in URL hash after redirect
+    (function() {
+      const hash = window.location.hash;
+      if (hash && hash.includes('ga_token=')) {
+        const params = new URLSearchParams(hash.replace('#', ''));
+        const token = params.get('ga_token');
+        const expiry = params.get('ga_expiry');
+        if (token) {
+          localStorage.setItem('ga_access_token', token);
+          localStorage.setItem('ga_token_expiry', expiry);
+          window.location.hash = '';
+          setTimeout(() => {
+            document.getElementById('gaPanel').classList.add('open');
+            loadGAStats();
+          }, 500);
+        }
+      }
+    })();
 
     document.getElementById('gaPanel') && document.getElementById('gaPanel').addEventListener('transitionend', function(e) {
       if (this.classList.contains('open')) loadGAStats();
