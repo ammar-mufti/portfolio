@@ -1,14 +1,14 @@
 {
   "projects": [
     {
-      "title": "Sales Agent-to-Merchant Assignment Engine",
-      "description": "Geo-fenced, OTP-verified agent-to-merchant mapping platform with conditional approval logic across three integrated systems.",
+      "title": "Customer Onboarding eKYC Platform & NID Integration",
+      "description": "Six customer-facing identity journeys rebuilt around a national ID verification system, with a four-permutation ownership transfer matrix.",
       "tags": [
-        "Platform Delivery",
-        "Approval Workflows",
-        "Systems Integration"
+        "eKYC",
+        "Regulatory Compliance",
+        "Identity Verification"
       ],
-      "file": "projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf",
+      "file": "projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf",
       "visible": true
     },
     {
@@ -23,14 +23,14 @@
       "visible": true
     },
     {
-      "title": "Customer Onboarding eKYC Platform & NID Integration",
-      "description": "Six customer-facing identity journeys rebuilt around a national ID verification system, with a four-permutation ownership transfer matrix.",
+      "title": "Field Team Engagement Platform",
+      "description": "Three-module platform specification covering in-app notifications, training manual hub, and survey builder with conditional branching logic across mobile and web channels.",
       "tags": [
-        "eKYC",
-        "Regulatory Compliance",
-        "Identity Verification"
+        "EngageHub",
+        "Notifications",
+        "Survey Design"
       ],
-      "file": "projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf",
+      "file": "projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf",
       "visible": true
     },
     {
@@ -56,17 +56,6 @@
       "visible": true
     },
     {
-      "title": "Field Team Engagement Platform",
-      "description": "Three-module platform specification covering in-app notifications, training manual hub, and survey builder with conditional branching logic across mobile and web channels.",
-      "tags": [
-        "EngageHub",
-        "Notifications",
-        "Survey Design"
-      ],
-      "file": "projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf",
-      "visible": true
-    },
-    {
       "title": "Purchase Order & Inventory Management",
       "description": "Vendor-to-in-house migration specification covering four fulfilment pipelines, ERP integration, smart retry logic, and inventory chain of custody.",
       "tags": [
@@ -75,6 +64,17 @@
         "Inventory"
       ],
       "file": "projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf",
+      "visible": true
+    },
+    {
+      "title": "Sales Agent-to-Merchant Assignment Engine",
+      "description": "Geo-fenced, OTP-verified agent-to-merchant mapping platform with conditional approval logic across three integrated systems.",
+      "tags": [
+        "Platform Delivery",
+        "Approval Workflows",
+        "Systems Integration"
+      ],
+      "file": "projects/Agent-to-Merchant_Mapping_Remapping_Ammar-Mufti-Mohammed.pdf",
       "visible": true
     },
     {
