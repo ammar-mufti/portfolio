@@ -78,6 +78,155 @@
     [class*="toolbar"] { top: 36px !important; }
     [class*="Header"] { top: 36px !important; }
     [role="banner"] { top: 36px !important; position: sticky !important; }
+
+    /* ── GA PANEL ── */
+    .ga-toggle-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99998;
+      background: #E37400;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      transition: transform 0.18s;
+    }
+    .ga-toggle-btn:hover { transform: translateY(-2px); }
+    .ga-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: #1A1A2E;
+      z-index: 99997;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ga-panel.open { right: 0; }
+    .ga-panel-header {
+      background: #E37400;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ga-panel-header h3 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .ga-panel-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+    .ga-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .ga-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #9CA3AF;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .ga-section-title:first-child { margin-top: 0; }
+    .ga-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #2D2D4A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: #E5E7EB;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.18s;
+    }
+    .ga-link:hover { background: #3D3D6A; color: #fff; }
+    .ga-link .ga-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #E37400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .ga-link .ga-desc {
+      font-size: 11px;
+      color: #9CA3AF;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .ga-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .ga-stat-card {
+      background: #2D2D4A;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .ga-stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4F8EF7;
+    }
+    .ga-stat-label {
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 4px;
+    }
+    .ga-stat-loading {
+      font-size: 11px;
+      color: #9CA3AF;
+      text-align: center;
+      padding: 8px;
+    }
+    .ga-refresh-btn {
+      width: 100%;
+      background: #2D2D4A;
+      border: 1px solid #3D3D6A;
+      color: #9CA3AF;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+      font-family: sans-serif;
+    }
+    .ga-refresh-btn:hover { background: #3D3D6A; color: #fff; }
   </style>
 </head>
 <body>
@@ -141,6 +290,165 @@
     observer.observe(document.body, { childList: true, subtree: true });
     setTimeout(interceptDeleteButtons, 2000);
     setTimeout(interceptDeleteButtons, 4000);
+  </script>
+
+  <!-- GA Toggle Button -->
+  <button class="ga-toggle-btn" onclick="document.getElementById('gaPanel').classList.toggle('open')">
+    📊 Analytics
+  </button>
+
+  <!-- GA Slide Panel -->
+  <div class="ga-panel" id="gaPanel">
+    <div class="ga-panel-header">
+      <h3>📊 Google Analytics</h3>
+      <button class="ga-panel-close" onclick="document.getElementById('gaPanel').classList.remove('open')">✕</button>
+    </div>
+    <div class="ga-panel-body">
+
+      <div class="ga-section-title">Live Stats (Last 30 Days)</div>
+      <div class="ga-stats-grid" id="gaStatsGrid">
+        <div class="ga-stat-card">
+          <div class="ga-stat-value" id="gaTotalUsers">—</div>
+          <div class="ga-stat-label">Total Visitors</div>
+        </div>
+        <div class="ga-stat-card">
+          <div class="ga-stat-value" id="gaPageViews">—</div>
+          <div class="ga-stat-label">Page Views</div>
+        </div>
+        <div class="ga-stat-card">
+          <div class="ga-stat-value" id="gaResumeDownloads">—</div>
+          <div class="ga-stat-label">Resume Downloads</div>
+        </div>
+        <div class="ga-stat-card">
+          <div class="ga-stat-value" id="gaProjectViews">—</div>
+          <div class="ga-stat-label">Project Views</div>
+        </div>
+      </div>
+      <button class="ga-refresh-btn" onclick="loadGAStats()">↻ Refresh Stats</button>
+
+      <div class="ga-section-title">Quick Links</div>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/reportinghub" target="_blank" class="ga-link">
+        <div class="ga-icon">🏠</div>
+        <div>
+          <div>Reports Home</div>
+          <div class="ga-desc">Overview of all your analytics</div>
+        </div>
+      </a>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/realtime" target="_blank" class="ga-link">
+        <div class="ga-icon">🔴</div>
+        <div>
+          <div>Realtime Report</div>
+          <div class="ga-desc">See who is on your site right now</div>
+        </div>
+      </a>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+        <div class="ga-icon">⚡</div>
+        <div>
+          <div>Events Report</div>
+          <div class="ga-desc">Resume clicks, project downloads</div>
+        </div>
+      </a>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-acquisition-v2&collectionId=life-cycle" target="_blank" class="ga-link">
+        <div class="ga-icon">👥</div>
+        <div>
+          <div>Audience Report</div>
+          <div class="ga-desc">Who is visiting your portfolio</div>
+        </div>
+      </a>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-engagement-overview&collectionId=life-cycle" target="_blank" class="ga-link">
+        <div class="ga-icon">📈</div>
+        <div>
+          <div>Engagement Report</div>
+          <div class="ga-desc">How visitors interact with your site</div>
+        </div>
+      </a>
+
+      <div class="ga-section-title">Track Specific Events</div>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+        <div class="ga-icon">📄</div>
+        <div>
+          <div>Resume Downloads</div>
+          <div class="ga-desc">Filter by event: resume_download</div>
+        </div>
+      </a>
+
+      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+        <div class="ga-icon">🗂</div>
+        <div>
+          <div>Project Views & Downloads</div>
+          <div class="ga-desc">Filter by: project_view, project_download</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <script>
+    async function loadGAStats() {
+      document.getElementById('gaTotalUsers').textContent = '—';
+      document.getElementById('gaPageViews').textContent = '—';
+      document.getElementById('gaResumeDownloads').textContent = '—';
+      document.getElementById('gaProjectViews').textContent = '—';
+
+      try {
+        const token = localStorage.getItem('ga_access_token');
+        if (!token) {
+          document.getElementById('gaTotalUsers').textContent = 'Auth';
+          document.getElementById('gaPageViews').textContent = 'needed';
+          document.getElementById('gaResumeDownloads').textContent = '—';
+          document.getElementById('gaProjectViews').textContent = '—';
+          return;
+        }
+
+        const propertyId = 'GA_PROPERTY_ID_PLACEHOLDER';
+        const today = new Date().toISOString().split('T')[0];
+        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+        const response = await fetch(
+          `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              dateRanges: [{ startDate: thirtyDaysAgo, endDate: today }],
+              metrics: [
+                { name: 'totalUsers' },
+                { name: 'screenPageViews' },
+                { name: 'eventCount' },
+              ],
+              dimensionFilter: {
+                filter: {
+                  fieldName: 'eventName',
+                  stringFilter: { matchType: 'EXACT', value: 'resume_download' }
+                }
+              }
+            }),
+          }
+        );
+
+        const data = await response.json();
+        if (data.rows && data.rows[0]) {
+          document.getElementById('gaTotalUsers').textContent = data.rows[0].metricValues[0].value;
+          document.getElementById('gaPageViews').textContent = data.rows[0].metricValues[1].value;
+          document.getElementById('gaResumeDownloads').textContent = data.rows[0].metricValues[2].value;
+        }
+      } catch (err) {
+        console.log('GA stats error:', err);
+      }
+    }
+
+    document.getElementById('gaPanel') && document.getElementById('gaPanel').addEventListener('transitionend', function(e) {
+      if (this.classList.contains('open')) loadGAStats();
+    });
   </script>
 
 </body>
