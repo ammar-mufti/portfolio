@@ -504,15 +504,21 @@
     }
 
     function connectGA() {
-      window.open('https://cms-auth.muftiammar52.workers.dev/ga-auth', '_blank', 'width=500,height=600');
-      // Check every 2 seconds if token was stored
-      const checkInterval = setInterval(() => {
-        const token = localStorage.getItem('ga_access_token');
-        if (token) {
-          clearInterval(checkInterval);
+      const popup = window.open(
+        'https://cms-auth.muftiammar52.workers.dev/ga-auth',
+        'ga-auth',
+        'width=500,height=600'
+      );
+
+      window.addEventListener('message', function(event) {
+        if (event.origin !== 'https://cms-auth.muftiammar52.workers.dev') return;
+        if (event.data && event.data.type === 'ga_token') {
+          localStorage.setItem('ga_access_token', event.data.token);
+          localStorage.setItem('ga_token_expiry', event.data.expiry);
+          if (popup) popup.close();
           loadGAStats();
         }
-      }, 2000);
+      }, { once: true });
     }
 
     function disconnectGA() {
