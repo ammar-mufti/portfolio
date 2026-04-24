@@ -119,3 +119,16 @@ collections:
         file: "data/pow_settings.json"
         fields:
           - { label: "Section Notice", name: "notice", widget: "text", hint: "Text shown below the proof of work cards", default: "All documents are redacted delivery artefacts. Contact me to discuss any project in detail." }
+
+  - name: "sections"
+    label: "Section Visibility"
+    files:
+      - label: "Show/Hide Sections"
+        name: "sections"
+        file: "data/sections.json"
+        fields:
+          - { label: "Show Hero Section", name: "hero", widget: "boolean", default: true }
+          - { label: "Show About Me Section", name: "about", widget: "boolean", default: true }
+          - { label: "Show Experience Section", name: "experience", widget: "boolean", default: true }
+          - { label: "Show Proof of Work Section", name: "work", widget: "boolean", default: true }
+          - { label: "Show Education & Certifications Section", name: "education", widget: "boolean", default: true }

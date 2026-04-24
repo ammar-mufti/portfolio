@@ -1,0 +1,7 @@
+{
+  "hero": true,
+  "about": true,
+  "experience": true,
+  "work": true,
+  "education": true
+}

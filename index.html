@@ -993,13 +993,14 @@
   // ── Fetch all data and render ──
   async function loadPortfolio() {
     try {
-      const [hero, about, experience, projectsJson, education, powSettings] = await Promise.all([
+      const [hero, about, experience, projectsJson, education, powSettings, sections] = await Promise.all([
         fetch('./data/hero.json').then(r => r.json()),
         fetch('./data/about.json').then(r => r.json()),
         fetch('./data/experience.json').then(r => r.json()),
         fetch('./data/projects.json').then(r => r.json()),
         fetch('./data/education.json').then(r => r.json()),
-        fetch('./data/pow_settings.json').then(r => r.json()).catch(() => ({ notice: 'All documents are redacted delivery artefacts. Contact me to discuss any project in detail.' }))
+        fetch('./data/pow_settings.json').then(r => r.json()).catch(() => ({ notice: 'All documents are redacted delivery artefacts. Contact me to discuss any project in detail.' })),
+        fetch('./data/sections.json').then(r => r.json()).catch(() => ({ hero: true, about: true, experience: true, work: true, education: true }))
       ]);
 
       renderHero(hero);
@@ -1008,6 +1009,19 @@
       renderEducation(education);
       const noticeEl = document.querySelector('.work-notice');
       if (noticeEl && powSettings.notice) noticeEl.textContent = powSettings.notice;
+
+      // Apply section visibility
+      if (sections.hero === false) document.getElementById('hero').style.display = 'none';
+      if (sections.about === false) document.getElementById('about').style.display = 'none';
+      if (sections.experience === false) document.getElementById('experience').style.display = 'none';
+      if (sections.work === false) document.getElementById('work').style.display = 'none';
+      if (sections.education === false) document.getElementById('education').style.display = 'none';
+
+      // Update navbar links to hide links for hidden sections
+      if (sections.about === false) document.querySelector('a[href="#about"]')?.parentElement?.remove();
+      if (sections.experience === false) document.querySelector('a[href="#experience"]')?.parentElement?.remove();
+      if (sections.work === false) document.querySelector('a[href="#work"]')?.parentElement?.remove();
+      if (sections.education === false) document.querySelector('a[href="#education"]')?.parentElement?.remove();
 
       const projects = (projectsJson.projects || projectsJson).filter(p => p.visible !== false);
       renderProjects(projects);
