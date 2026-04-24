@@ -976,57 +976,8 @@
       renderExperience(experience);
       renderEducation(education);
 
-      // Fetch individual project markdown files from data/projects/ folder
-      let allProjects = Array.isArray(projectsJson) ? [...projectsJson] : [];
-      const existingTitles = allProjects.map(p => p.title.toLowerCase().trim());
-
-      try {
-        // Try to fetch the projects directory listing
-        const dirResponse = await fetch('./data/projects/');
-        const dirText = await dirResponse.text();
-
-        // Parse markdown file names from directory listing
-        const mdFiles = [...dirText.matchAll(/href="([^"]+\.md)"/g)].map(m => m[1]);
-
-        // Fetch each markdown file and parse frontmatter
-        const mdProjects = await Promise.all(
-          mdFiles.map(async (filename) => {
-            try {
-              const res = await fetch('./data/projects/' + filename);
-              const text = await res.text();
-
-              // Parse YAML frontmatter
-              const match = text.match(/^---\n([\s\S]*?)\n---/);
-              if (!match) return null;
-
-              const frontmatter = match[1];
-              const title = (frontmatter.match(/^title:\s*(.+)$/m) || [])[1]?.trim().replace(/^['"]|['"]$/g, '');
-              const description = (frontmatter.match(/^description:\s*(.+)$/m) || [])[1]?.trim().replace(/^['"]|['"]$/g, '');
-              const file = (frontmatter.match(/^file:\s*(.+)$/m) || [])[1]?.trim().replace(/^['"]|['"]$/g, '');
-
-              // Parse tags array
-              const tagsMatch = frontmatter.match(/^tags:\s*\n((?:\s+-\s*.+\n?)*)/m);
-              const tags = tagsMatch
-                ? tagsMatch[1].match(/^\s+-\s*(.+)$/gm)?.map(t => t.replace(/^\s+-\s*/, '').trim()) || []
-                : [];
-
-              if (!title) return null;
-              return { title, description, tags, file };
-            } catch { return null; }
-          })
-        );
-
-        // Add new projects not already in projects.json
-        mdProjects.filter(Boolean).forEach(p => {
-          if (!existingTitles.includes(p.title.toLowerCase().trim())) {
-            allProjects.push(p);
-          }
-        });
-      } catch (e) {
-        console.log('No additional project files found:', e);
-      }
-
-      renderProjects(allProjects);
+      const projects = (projectsJson.projects || projectsJson).filter(p => p.visible !== false);
+      renderProjects(projects);
       reinitFadeIn();
 
     } catch(err) {

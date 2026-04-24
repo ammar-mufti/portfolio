@@ -77,18 +77,23 @@ collections:
 
   - name: "projects"
     label: "Proof of Work"
-    folder: "data/projects"
-    create: true
-    delete: true
-    identifier_field: "title"
-    fields:
-      - { label: "Project Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - label: "Tags"
-        name: "tags"
-        widget: "list"
-        field: { label: "Tag", name: "tag", widget: "string" }
-      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", accept: [".pdf"], hint: "Only PDF files are accepted. Other formats will be rejected." }
+    files:
+      - label: "All Projects"
+        name: "projects"
+        file: "data/projects.json"
+        fields:
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "Project Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Tags"
+                name: "tags"
+                widget: "list"
+                field: { label: "Tag", name: "tag", widget: "string" }
+              - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", hint: "Upload PDF file only" }
+              - { label: "Visible", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this project from the live site" }
 
   - name: "education"
     label: "Education & Certifications"
