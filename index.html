@@ -165,26 +165,28 @@
       min-height: 88vh;
       display: flex;
       align-items: center;
-      padding: 64px 24px;
+      padding: 64px 0;
+      overflow: hidden;
     }
     .hero-container {
-      max-width: 1100px;
-      margin: 0 auto;
+      max-width: 100%;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 48px;
+      gap: 0;
     }
     .hero-inner {
       flex: 1;
       max-width: 680px;
+      padding: 0 48px 0 64px;
     }
     .hero-photo-wrap {
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-right: 64px;
     }
     .hero-photo {
       width: clamp(220px, 22vw, 340px);
@@ -559,10 +561,11 @@
         align-items: center;
         text-align: center;
       }
-      .hero-inner { max-width: 100%; }
+      .hero-inner { max-width: 100%; padding: 0 24px; }
       .hero-ctas { justify-content: center; }
       .hero-contacts { justify-content: center; }
       .hero-oneliner { margin-left: auto; margin-right: auto; }
+      .hero-photo-wrap { padding-right: 0; }
       .hero-photo {
         width: 180px;
         height: 180px;
@@ -652,6 +655,33 @@
       :root:not([data-theme="light"]) .hero-photo { border-color: #2D2D4A; }
       :root:not([data-theme="light"]) .nav-links { background: var(--surface); }
       :root:not([data-theme="light"]) footer { background: #0a0a14; }
+    }
+    .admin-link {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 9999;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0.3;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .admin-link:hover {
+      opacity: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .admin-link svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
     }
   </style>
 <!-- Google Analytics -->
@@ -990,5 +1020,12 @@
 
   loadPortfolio();
 </script>
+  <a href="https://ammar-mufti.github.io/portfolio/dashboard" target="_blank" class="admin-link" title="Dashboard">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="8" height="10" rx="1"/>
+      <rect x="13" y="3" width="8" height="8" rx="1"/>
+      <rect x="13" y="15" width="8" height="6" rx="1"/>
+    </svg>
+  </a>
 </body>
 </html>
