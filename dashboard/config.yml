@@ -110,3 +110,12 @@ collections:
             fields:
               - { label: "Certificate Name", name: "name", widget: "string" }
               - { label: "Issuer", name: "issuer", widget: "string" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Proof of Work Section"
+        name: "pow_settings"
+        file: "data/pow_settings.json"
+        fields:
+          - { label: "Section Notice", name: "notice", widget: "text", hint: "Text shown below the proof of work cards", default: "All documents are redacted delivery artefacts. Contact me to discuss any project in detail." }
