@@ -298,6 +298,8 @@
     function interceptDeleteButtons() {
       const allButtons = document.querySelectorAll('button');
       allButtons.forEach(btn => {
+        if (btn.id === 'cancelDeleteBtn' || btn.id === 'confirmDeleteBtn') return;
+        if (btn.closest('#deleteConfirmOverlay')) return;
         const text = btn.textContent.trim().toLowerCase();
         if (
           (text === 'delete entry' || text === 'delete published entry' || text === 'delete') &&
@@ -324,8 +326,10 @@
       if (pendingDeleteBtn) {
         const btn = pendingDeleteBtn;
         pendingDeleteBtn = null;
-        btn.removeAttribute('data-intercepted');
-        setTimeout(() => btn.click(), 100);
+        btn.dataset.intercepted = 'done';
+        setTimeout(() => {
+          btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        }, 150);
       }
     });
 
