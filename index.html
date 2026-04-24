@@ -1008,7 +1008,13 @@
       renderExperience(experience);
       renderEducation(education);
       const noticeEl = document.querySelector('.work-notice');
-      if (noticeEl && powSettings.notice) noticeEl.textContent = powSettings.notice;
+      if (noticeEl) {
+        if (powSettings.show_notice === false || !powSettings.notice) {
+          noticeEl.style.display = 'none';
+        } else {
+          noticeEl.textContent = powSettings.notice;
+        }
+      }
 
       // Apply section visibility
       if (sections.hero === false) document.getElementById('hero').style.display = 'none';

@@ -118,7 +118,8 @@ collections:
         name: "pow_settings"
         file: "data/pow_settings.json"
         fields:
-          - { label: "Section Notice", name: "notice", widget: "text", hint: "Text shown below the proof of work cards", default: "All documents are redacted delivery artefacts. Contact me to discuss any project in detail." }
+          - { label: "Show Section Notice", name: "show_notice", widget: "boolean", default: true, hint: "Toggle to show or hide the notice below the proof of work cards" }
+          - { label: "Section Notice", name: "notice", widget: "text", required: false, hint: "Text shown below the proof of work cards. Leave blank to hide.", default: "All documents are redacted delivery artefacts. Contact me to discuss any project in detail." }
 
   - name: "sections"
     label: "Section Visibility"
