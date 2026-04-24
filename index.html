@@ -853,7 +853,7 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download Resume
       </a>
-      <a href="${esc(h.resume_filename)}" target="_blank" class="btn btn-outline" onclick="gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
+      <a href="https://docs.google.com/viewer?url=https://ammar-mufti.github.io/portfolio/${esc(h.resume_filename)}" target="_blank" class="btn btn-outline" onclick="gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         View Resume Online
       </a>`;
@@ -923,7 +923,7 @@
         <div class="project-desc">${esc(p.description)}</div>
         <div class="project-tags">${tags}</div>
         <div class="project-actions">
-          <a href="${esc(p.file)}" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
+          <a href="https://docs.google.com/viewer?url=https://ammar-mufti.github.io/portfolio/${esc(p.file)}" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             View
           </a>
