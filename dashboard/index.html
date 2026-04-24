@@ -227,6 +227,28 @@
       font-family: sans-serif;
     }
     .ga-refresh-btn:hover { background: #3D3D6A; color: #fff; }
+    .view-on-site-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 99998;
+      background: #1A1A2E;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      transition: transform 0.18s;
+      text-decoration: none;
+    }
+    .view-on-site-btn:hover { transform: translateY(-2px); }
     .ga-date-selector {
       display: flex;
       gap: 6px;
@@ -313,6 +335,10 @@
     setTimeout(interceptDeleteButtons, 2000);
     setTimeout(interceptDeleteButtons, 4000);
   </script>
+
+  <a href="https://ammar-mufti.github.io/portfolio" target="_blank" class="view-on-site-btn">
+    🌐 View Live Site
+  </a>
 
   <!-- GA Toggle Button -->
   <button class="ga-toggle-btn" onclick="document.getElementById('gaPanel').classList.toggle('open')">
