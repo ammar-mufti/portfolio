@@ -227,6 +227,28 @@
       font-family: sans-serif;
     }
     .ga-refresh-btn:hover { background: #3D3D6A; color: #fff; }
+    .ga-date-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .ga-date-btn {
+      flex: 1;
+      background: #2D2D4A;
+      border: 1px solid #3D3D6A;
+      color: #9CA3AF;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: sans-serif;
+      text-align: center;
+      transition: all 0.18s;
+    }
+    .ga-date-btn:hover { background: #3D3D6A; color: #fff; }
+    .ga-date-btn.active { background: #4F8EF7; border-color: #4F8EF7; color: #fff; }
   </style>
 </head>
 <body>
@@ -305,7 +327,13 @@
     </div>
     <div class="ga-panel-body">
 
-      <div class="ga-section-title">Live Stats (Last 30 Days)</div>
+      <div class="ga-section-title">Live Stats</div>
+      <div class="ga-date-selector">
+        <button class="ga-date-btn" onclick="setDateRange(1)" id="gaBtn1">Today</button>
+        <button class="ga-date-btn" onclick="setDateRange(7)" id="gaBtn7">7 Days</button>
+        <button class="ga-date-btn" onclick="setDateRange(14)" id="gaBtn14">14 Days</button>
+        <button class="ga-date-btn active" onclick="setDateRange(30)" id="gaBtn30">30 Days</button>
+      </div>
       <div id="gaAuthSection" style="display:none; text-align:center; padding: 16px 0;">
         <p style="color:#9CA3AF; font-size:13px; margin-bottom:12px;">Connect your Google Analytics account to see live stats.</p>
         <button onclick="connectGA()" style="background:#4F8EF7; color:#fff; border:none; border-radius:6px; padding:10px 20px; font-size:13px; font-weight:700; cursor:pointer; font-family:sans-serif;">
@@ -331,7 +359,7 @@
         </div>
       </div>
       <button class="ga-refresh-btn" id="gaRefreshBtn" onclick="loadGAStats()">↻ Refresh Stats</button>
-      <button class="ga-refresh-btn" onclick="disconnectGA()" style="margin-top:4px; color:#EF4444; border-color:#EF4444;">Disconnect GA</button>
+      <button class="ga-refresh-btn" id="gaDisconnectBtn" onclick="disconnectGA()" style="margin-top:4px; color:#EF4444; border-color:#EF4444;">Disconnect GA</button>
 
       <div class="ga-section-title">Quick Links</div>
 
@@ -397,6 +425,15 @@
   </div>
 
   <script>
+    let currentDateRange = 30;
+
+    function setDateRange(days) {
+      currentDateRange = days;
+      document.querySelectorAll('.ga-date-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('gaBtn' + days).classList.add('active');
+      loadGAStats();
+    }
+
     async function loadGAStats() {
       const token = localStorage.getItem('ga_access_token');
       const expiry = localStorage.getItem('ga_token_expiry');
@@ -405,94 +442,62 @@
         document.getElementById('gaAuthSection').style.display = 'block';
         document.getElementById('gaStatsGrid').style.display = 'none';
         document.getElementById('gaRefreshBtn').style.display = 'none';
+        document.getElementById('gaDisconnectBtn').style.display = 'none';
         return;
       }
 
       document.getElementById('gaAuthSection').style.display = 'none';
       document.getElementById('gaStatsGrid').style.display = 'grid';
       document.getElementById('gaRefreshBtn').style.display = 'block';
+      document.getElementById('gaDisconnectBtn').style.display = 'block';
+
+      document.getElementById('gaTotalUsers').textContent = '...';
+      document.getElementById('gaPageViews').textContent = '...';
+      document.getElementById('gaResumeDownloads').textContent = '...';
+      document.getElementById('gaProjectViews').textContent = '...';
 
       const propertyId = '470740156';
       const today = new Date().toISOString().split('T')[0];
-      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      const startDate = currentDateRange === 1 ? today :
+        new Date(Date.now() - currentDateRange * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+      async function fetchGA(body) {
+        const res = await fetch(
+          `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              dateRanges: [{ startDate, endDate: today }],
+              ...body
+            }),
+          }
+        );
+        return res.json();
+      }
 
       try {
-        const response = await fetch(
-          `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              dateRanges: [{ startDate: thirtyDaysAgo, endDate: today }],
-              metrics: [
-                { name: 'totalUsers' },
-                { name: 'screenPageViews' },
-              ],
-            }),
-          }
-        );
+        const [mainData, resumeData, projectData] = await Promise.all([
+          fetchGA({ metrics: [{ name: 'totalUsers' }, { name: 'screenPageViews' }] }),
+          fetchGA({
+            metrics: [{ name: 'eventCount' }],
+            dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'resume_download' } } }
+          }),
+          fetchGA({
+            metrics: [{ name: 'eventCount' }],
+            dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'project_view' } } }
+          }),
+        ]);
 
-        const data = await response.json();
-
-        if (data.rows && data.rows[0]) {
-          document.getElementById('gaTotalUsers').textContent =
-            parseInt(data.rows[0].metricValues[0].value).toLocaleString();
-          document.getElementById('gaPageViews').textContent =
-            parseInt(data.rows[0].metricValues[1].value).toLocaleString();
-        }
-
-        // Fetch resume downloads
-        const resumeResponse = await fetch(
-          `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              dateRanges: [{ startDate: thirtyDaysAgo, endDate: today }],
-              metrics: [{ name: 'eventCount' }],
-              dimensionFilter: {
-                filter: {
-                  fieldName: 'eventName',
-                  stringFilter: { matchType: 'EXACT', value: 'resume_download' }
-                }
-              }
-            }),
-          }
-        );
-
-        const resumeData = await resumeResponse.json();
+        document.getElementById('gaTotalUsers').textContent =
+          mainData.rows ? parseInt(mainData.rows[0].metricValues[0].value).toLocaleString() : '0';
+        document.getElementById('gaPageViews').textContent =
+          mainData.rows ? parseInt(mainData.rows[0].metricValues[1].value).toLocaleString() : '0';
         document.getElementById('gaResumeDownloads').textContent =
           resumeData.rows ? parseInt(resumeData.rows[0].metricValues[0].value).toLocaleString() : '0';
-
-        // Fetch project views
-        const projectResponse = await fetch(
-          `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              dateRanges: [{ startDate: thirtyDaysAgo, endDate: today }],
-              metrics: [{ name: 'eventCount' }],
-              dimensionFilter: {
-                filter: {
-                  fieldName: 'eventName',
-                  stringFilter: { matchType: 'EXACT', value: 'project_view' }
-                }
-              }
-            }),
-          }
-        );
-
-        const projectData = await projectResponse.json();
         document.getElementById('gaProjectViews').textContent =
           projectData.rows ? parseInt(projectData.rows[0].metricValues[0].value).toLocaleString() : '0';
 
@@ -500,6 +505,8 @@
         console.error('GA stats error:', err);
         document.getElementById('gaTotalUsers').textContent = 'Error';
         document.getElementById('gaPageViews').textContent = 'Error';
+        document.getElementById('gaResumeDownloads').textContent = 'Error';
+        document.getElementById('gaProjectViews').textContent = 'Error';
       }
     }
 
