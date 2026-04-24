@@ -88,7 +88,7 @@ collections:
         name: "tags"
         widget: "list"
         field: { label: "Tag", name: "tag", widget: "string" }
-      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects" }
+      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", accept: [".pdf"], hint: "Only PDF files are accepted. Other formats will be rejected." }
 
   - name: "education"
     label: "Education & Certifications"
