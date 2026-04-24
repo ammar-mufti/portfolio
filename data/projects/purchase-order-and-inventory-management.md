@@ -6,4 +6,5 @@ tags:
   - ERP Integration
   - Inventory
 file: projects/PO_Inventory_Management_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---

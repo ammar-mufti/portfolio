@@ -6,4 +6,5 @@ tags:
   - Multi-System Integration
   - Role-Based Access
 file: projects/Field-Agent-Onboarding_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---

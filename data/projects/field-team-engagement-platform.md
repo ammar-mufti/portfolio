@@ -6,4 +6,5 @@ tags:
   - Notifications
   - Survey Design
 file: projects/EngageHub_FieldEngagement_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---

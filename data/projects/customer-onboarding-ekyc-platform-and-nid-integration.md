@@ -6,4 +6,5 @@ tags:
   - Regulatory Compliance
   - Identity Verification
 file: projects/eKYC_NID_Fayda_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---

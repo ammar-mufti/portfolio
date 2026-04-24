@@ -6,4 +6,5 @@ tags:
   - Dashboards
   - Performance Monitoring
 file: projects/KPI_Reporting_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---

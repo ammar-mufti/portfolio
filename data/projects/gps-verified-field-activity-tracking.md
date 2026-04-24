@@ -6,4 +6,5 @@ tags:
   - GPS Verification
   - Field Ops
 file: projects/SFA_FieldActivity_Ammar-Mufti-Mohammed.pdf
+visible: true
 ---
