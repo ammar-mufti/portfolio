@@ -1121,9 +1121,14 @@
     const mid = Math.ceil(nameParts.length / 2);
     const line1 = nameParts.slice(0, mid).join(' ');
     const line2 = nameParts.slice(mid).join(' ');
-    document.getElementById('hero-name').innerHTML = esc(line1) + '<br>' + esc(line2);
-    document.getElementById('hero-subtitle').textContent = h.title;
-    document.getElementById('hero-oneliner').textContent = h.oneliner;
+    const nameEl = document.getElementById('hero-name');
+    nameEl.innerHTML = esc(line1) + '<br>' + esc(line2);
+    const subtitleEl = document.getElementById('hero-subtitle');
+    subtitleEl.innerHTML = '';
+    subtitleEl.textContent = h.title;
+    const onelinerEl = document.getElementById('hero-oneliner');
+    onelinerEl.innerHTML = '';
+    onelinerEl.textContent = h.oneliner;
 
     document.getElementById('hero-ctas').innerHTML = `
       <a href="${esc(h.resume_filename)}" download="${esc(h.resume_filename)}" class="btn btn-primary" onclick="gtag('event', 'resume_download', {'event_category': 'Resume', 'event_label': 'Download Resume'});">
