@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio Admin</title>
+  <title>Portfolio Dashboard — Ammar Mufti Mohammed</title>
   <style>
+
+    /* ── CMS PUSH DOWN ── */
     #nc-root { margin-top: 36px !important; }
     #sveltia-cms { margin-top: 36px !important; }
     [class*="AppHeader"] { top: 36px !important; }
@@ -13,7 +15,106 @@
     [class*="Header"] { top: 36px !important; }
     [role="banner"] { top: 36px !important; position: sticky !important; }
 
-    /* ── GA PANEL ── */
+    /* ── IDENTITY BAR ── */
+    .cms-identity-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background: #1A1A2E;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-family: sans-serif;
+    }
+    .cms-identity-site {
+      font-size: 12px;
+      color: #9CA3AF;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cms-identity-site span {
+      color: #4F8EF7;
+      font-weight: 600;
+    }
+    .cms-identity-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cms-icon-tip-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+    .cms-icon-tip-wrap .cms-tooltip {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2D2D4A;
+      color: #E5E7EB;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 999999;
+    }
+    .cms-icon-tip-wrap:hover .cms-tooltip { opacity: 1; }
+
+    /* ── FLOATING BUTTONS — repositioned to avoid top-right icons ── */
+    .view-on-site-btn {
+      position: fixed;
+      bottom: 156px;
+      right: 24px;
+      z-index: 99998;
+      background: #1A1A2E;
+      color: #fff;
+      border: 1px solid #2D2D4A;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      transition: transform 0.18s;
+      text-decoration: none;
+    }
+    .view-on-site-btn:hover { transform: translateY(-2px); }
+
+    .clarity-toggle-btn {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 99998;
+      background: #5C2D91;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      transition: transform 0.18s;
+    }
+    .clarity-toggle-btn:hover { transform: translateY(-2px); }
+
     .ga-toggle-btn {
       position: fixed;
       bottom: 24px;
@@ -35,14 +136,15 @@
       transition: transform 0.18s;
     }
     .ga-toggle-btn:hover { transform: translateY(-2px); }
-    .ga-panel {
+
+    /* ── PANELS ── */
+    .ga-panel, .clarity-panel {
       position: fixed;
       top: 0;
       right: -420px;
       width: 400px;
       height: 100vh;
       background: #1A1A2E;
-      z-index: 99997;
       box-shadow: -4px 0 24px rgba(0,0,0,0.3);
       transition: right 0.3s ease;
       font-family: sans-serif;
@@ -50,7 +152,10 @@
       flex-direction: column;
       overflow: hidden;
     }
-    .ga-panel.open { right: 0; }
+    .ga-panel { z-index: 99997; }
+    .clarity-panel { z-index: 99996; }
+    .ga-panel.open, .clarity-panel.open { right: 0; }
+
     .ga-panel-header {
       background: #E37400;
       padding: 16px 20px;
@@ -58,13 +163,20 @@
       align-items: center;
       justify-content: space-between;
     }
-    .ga-panel-header h3 {
+    .clarity-panel-header {
+      background: #5C2D91;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ga-panel-header h3, .clarity-panel-header h3 {
       color: #fff;
       font-size: 15px;
       font-weight: 700;
       margin: 0;
     }
-    .ga-panel-close {
+    .ga-panel-close, .clarity-panel-close {
       background: none;
       border: none;
       color: #fff;
@@ -73,11 +185,13 @@
       padding: 0;
       line-height: 1;
     }
-    .ga-panel-body {
+    .ga-panel-body, .clarity-panel-body {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
     }
+
+    /* ── GA STYLES ── */
     .ga-section-title {
       font-size: 11px;
       font-weight: 700;
@@ -142,12 +256,6 @@
       color: #9CA3AF;
       margin-top: 4px;
     }
-    .ga-stat-loading {
-      font-size: 11px;
-      color: #9CA3AF;
-      text-align: center;
-      padding: 8px;
-    }
     .ga-refresh-btn {
       width: 100%;
       background: #2D2D4A;
@@ -161,28 +269,6 @@
       font-family: sans-serif;
     }
     .ga-refresh-btn:hover { background: #3D3D6A; color: #fff; }
-    .view-on-site-btn {
-      position: fixed;
-      bottom: 90px;
-      right: 24px;
-      z-index: 99998;
-      background: #1A1A2E;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      font-family: sans-serif;
-      transition: transform 0.18s;
-      text-decoration: none;
-    }
-    .view-on-site-btn:hover { transform: translateY(-2px); }
     .ga-date-selector {
       display: flex;
       gap: 6px;
@@ -206,71 +292,7 @@
     .ga-date-btn:hover { background: #3D3D6A; color: #fff; }
     .ga-date-btn.active { background: #4F8EF7; border-color: #4F8EF7; color: #fff; }
 
-    /* ── CLARITY PANEL ── */
-    .clarity-toggle-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 132px;
-      z-index: 99998;
-      background: #5C2D91;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-      font-family: sans-serif;
-      transition: transform 0.18s;
-    }
-    .clarity-toggle-btn:hover { transform: translateY(-2px); }
-    .clarity-panel {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 400px;
-      height: 100vh;
-      background: #1A1A2E;
-      z-index: 99996;
-      box-shadow: -4px 0 24px rgba(0,0,0,0.3);
-      transition: right 0.3s ease;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .clarity-panel.open { right: 0; }
-    .clarity-panel-header {
-      background: #5C2D91;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .clarity-panel-header h3 {
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      margin: 0;
-    }
-    .clarity-panel-close {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 0;
-      line-height: 1;
-    }
-    .clarity-panel-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-    }
+    /* ── CLARITY STYLES ── */
     .clarity-stat-card {
       background: #2D2D4A;
       border-radius: 8px;
@@ -324,22 +346,47 @@
 </head>
 <body>
 
+  <!-- ── IDENTITY BAR ── -->
+  <div class="cms-identity-bar">
+    <div class="cms-identity-site">
+      ⚙
+      <span>ammar-mufti.github.io/portfolio</span>
+      <span style="color:#6B7280; font-weight:400;">· Portfolio Dashboard</span>
+    </div>
+    <div class="cms-identity-icons">
+      <div class="cms-icon-tip-wrap">
+        <span style="font-size:13px; color:#9CA3AF;">📋 Content</span>
+        <div class="cms-tooltip">Edit site content</div>
+      </div>
+      <span style="color:#2D2D4A; margin:0 6px;">|</span>
+      <div class="cms-icon-tip-wrap">
+        <span style="font-size:13px; color:#9CA3AF;">🖼 Assets</span>
+        <div class="cms-tooltip">Manage uploaded files</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CMS ── -->
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
+  <!-- ── FLOATING BUTTONS ── -->
   <a href="https://ammar-mufti.github.io/portfolio" target="_blank" class="view-on-site-btn" aria-label="View Live Site in new tab">
     🌐 View Live Site
   </a>
 
-  <!-- Clarity Toggle Button -->
-  <button class="clarity-toggle-btn" onclick="document.getElementById('clarityPanel').classList.toggle('open')" aria-label="Open Clarity Panel">
+  <button class="clarity-toggle-btn" onclick="togglePanel('clarityPanel')" aria-label="Open Clarity Panel">
     🔥 Clarity
   </button>
 
-  <!-- Clarity Slide Panel -->
+  <button class="ga-toggle-btn" onclick="togglePanel('gaPanel')" aria-label="Open Analytics Panel">
+    📊 Analytics
+  </button>
+
+  <!-- ── CLARITY PANEL ── -->
   <div class="clarity-panel" id="clarityPanel">
     <div class="clarity-panel-header">
       <h3>🔥 Microsoft Clarity</h3>
-      <button class="clarity-panel-close" onclick="document.getElementById('clarityPanel').classList.remove('open')" aria-label="Close Clarity panel">✕</button>
+      <button class="clarity-panel-close" onclick="togglePanel('clarityPanel')" aria-label="Close Clarity panel">✕</button>
     </div>
     <div class="clarity-panel-body">
 
@@ -402,16 +449,11 @@
     </div>
   </div>
 
-  <!-- GA Toggle Button -->
-  <button class="ga-toggle-btn" onclick="document.getElementById('gaPanel').classList.toggle('open')">
-    📊 Analytics
-  </button>
-
-  <!-- GA Slide Panel -->
+  <!-- ── GA PANEL ── -->
   <div class="ga-panel" id="gaPanel">
     <div class="ga-panel-header">
       <h3>📊 Google Analytics</h3>
-      <button class="ga-panel-close" onclick="document.getElementById('gaPanel').classList.remove('open')">✕</button>
+      <button class="ga-panel-close" onclick="togglePanel('gaPanel')" aria-label="Close Analytics panel">✕</button>
     </div>
     <div class="ga-panel-body">
 
@@ -422,12 +464,14 @@
         <button class="ga-date-btn" onclick="setDateRange(14)" id="gaBtn14">14 Days</button>
         <button class="ga-date-btn active" onclick="setDateRange(30)" id="gaBtn30">30 Days</button>
       </div>
+
       <div id="gaAuthSection" style="display:none; text-align:center; padding: 16px 0;">
         <p style="color:#9CA3AF; font-size:13px; margin-bottom:12px;">Connect your Google Analytics account to see live stats.</p>
         <button onclick="connectGA()" style="background:#4F8EF7; color:#fff; border:none; border-radius:6px; padding:10px 20px; font-size:13px; font-weight:700; cursor:pointer; font-family:sans-serif;">
           Connect Google Analytics
         </button>
       </div>
+
       <div class="ga-stats-grid" id="gaStatsGrid">
         <div class="ga-stat-card">
           <div class="ga-stat-value" id="gaTotalUsers">—</div>
@@ -446,12 +490,13 @@
           <div class="ga-stat-label">Project Views</div>
         </div>
       </div>
+
       <button class="ga-refresh-btn" id="gaRefreshBtn" onclick="loadGAStats()">↻ Refresh Stats</button>
       <button class="ga-refresh-btn" id="gaDisconnectBtn" onclick="disconnectGA()" style="margin-top:4px; color:#EF4444; border-color:#EF4444;">Disconnect GA</button>
 
       <div class="ga-section-title">Quick Links</div>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/reportinghub" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/reportinghub" target="_blank" class="ga-link">
         <div class="ga-icon">🏠</div>
         <div>
           <div>Reports Home</div>
@@ -459,7 +504,7 @@
         </div>
       </a>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/realtime" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/realtime" target="_blank" class="ga-link">
         <div class="ga-icon">🔴</div>
         <div>
           <div>Realtime Report</div>
@@ -467,15 +512,15 @@
         </div>
       </a>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
         <div class="ga-icon">⚡</div>
         <div>
           <div>Events Report</div>
-          <div class="ga-desc">Resume clicks, project downloads</div>
+          <div class="ga-desc">Resume clicks; project downloads</div>
         </div>
       </a>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-acquisition-v2&collectionId=life-cycle" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-acquisition-v2&collectionId=life-cycle" target="_blank" class="ga-link">
         <div class="ga-icon">👥</div>
         <div>
           <div>Audience Report</div>
@@ -483,7 +528,7 @@
         </div>
       </a>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-engagement-overview&collectionId=life-cycle" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=lifecycle-engagement-overview&collectionId=life-cycle" target="_blank" class="ga-link">
         <div class="ga-icon">📈</div>
         <div>
           <div>Engagement Report</div>
@@ -493,7 +538,7 @@
 
       <div class="ga-section-title">Track Specific Events</div>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
         <div class="ga-icon">📄</div>
         <div>
           <div>Resume Downloads</div>
@@ -501,11 +546,11 @@
         </div>
       </a>
 
-      <a href="https://analytics.google.com/analytics/web/#/p$(GA_PROPERTY_ID)/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
+      <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link">
         <div class="ga-icon">🗂</div>
         <div>
-          <div>Project Views & Downloads</div>
-          <div class="ga-desc">Filter by: project_view, project_download</div>
+          <div>Project Views and Downloads</div>
+          <div class="ga-desc">Filter by: project_view; project_download</div>
         </div>
       </a>
 
@@ -513,6 +558,24 @@
   </div>
 
   <script>
+
+    // ── Panel toggle — opening one closes the other ──
+    function togglePanel(id) {
+      const panels = ['gaPanel', 'clarityPanel'];
+      panels.forEach(function(panelId) {
+        const panel = document.getElementById(panelId);
+        if (panelId === id) {
+          panel.classList.toggle('open');
+        } else {
+          panel.classList.remove('open');
+        }
+      });
+      if (id === 'gaPanel' && document.getElementById('gaPanel').classList.contains('open')) {
+        loadGAStats();
+      }
+    }
+
+    // ── GA date range ──
     let currentDateRange = 30;
 
     function setDateRange(days) {
@@ -522,6 +585,7 @@
       loadGAStats();
     }
 
+    // ── GA stats loader ──
     async function loadGAStats() {
       const token = localStorage.getItem('ga_access_token');
       const expiry = localStorage.getItem('ga_token_expiry');
@@ -608,7 +672,7 @@
       loadGAStats();
     }
 
-    // Check for GA token in URL hash after redirect
+    // ── Check for GA token in URL hash after redirect ──
     (function() {
       const hash = window.location.hash;
       if (hash && hash.includes('ga_token=')) {
@@ -620,16 +684,12 @@
           localStorage.setItem('ga_token_expiry', expiry);
           window.location.hash = '';
           setTimeout(() => {
-            document.getElementById('gaPanel').classList.add('open');
-            loadGAStats();
+            togglePanel('gaPanel');
           }, 500);
         }
       }
     })();
 
-    document.getElementById('gaPanel') && document.getElementById('gaPanel').addEventListener('transitionend', function(e) {
-      if (this.classList.contains('open')) loadGAStats();
-    });
   </script>
 
 </body>
