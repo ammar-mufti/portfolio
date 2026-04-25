@@ -46,9 +46,26 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('./fonts/Inter-400.woff2') format('woff2');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('./fonts/Inter-600.woff2') format('woff2');
+      font-weight: 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('./fonts/Inter-700.woff2') format('woff2');
+      font-weight: 700;
+      font-display: swap;
+    }
+  </style>
   <style media="print">
     nav, .theme-toggle, .admin-link, .back-to-top, footer { display: none !important; }
     body { font-size: 12pt; color: #000; background: #fff; }
@@ -888,13 +905,16 @@
     </div>
     <div class="hero-photo-wrap">
       <div class="skeleton skeleton-photo" id="hero-photo-skeleton"></div>
-      <img
-        id="hero-photo"
-        src=""
-        alt="Ammar Mufti Mohammed"
-        class="hero-photo"
-        style="display:none;"
-      />
+      <picture>
+        <source id="hero-photo-webp" srcset="" type="image/webp" />
+        <img
+          id="hero-photo"
+          src=""
+          alt="Ammar Mufti Mohammed"
+          class="hero-photo"
+          style="display:none;"
+        />
+      </picture>
     </div>
   </div>
 </section>
@@ -1149,6 +1169,8 @@
     const photo = document.getElementById('hero-photo');
     photo.onerror = () => photo.parentElement.style.display = 'none';
     photo.src = h.photo;
+    const photoWebp = document.getElementById('hero-photo-webp');
+    if (photoWebp) photoWebp.srcset = h.photo.replace(/\.(jpg|jpeg|png)$/i, '.webp');
     document.title = h.tab_title || 'Ammar Mufti Mohammed · Portfolio';
   }
 
