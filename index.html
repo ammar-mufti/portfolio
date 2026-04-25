@@ -766,6 +766,50 @@
     .back-to-top:hover {
       background: var(--navy);
     }
+
+    /* ── SKELETON LOADING ── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--border) 25%, var(--surface) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-text { height: 16px; margin-bottom: 10px; border-radius: 4px; }
+    .skeleton-text.wide { width: 80%; }
+    .skeleton-text.medium { width: 60%; }
+    .skeleton-text.narrow { width: 40%; }
+    .skeleton-title { height: 28px; width: 70%; margin-bottom: 16px; border-radius: 4px; }
+    .skeleton-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .skeleton-photo {
+      width: clamp(220px, 22vw, 340px);
+      height: clamp(220px, 22vw, 340px);
+      border-radius: 50%;
+    }
+    .skeleton-pill {
+      height: 32px;
+      width: 80px;
+      border-radius: var(--radius-btn);
+      display: inline-block;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .skeleton-btn {
+      height: 40px;
+      border-radius: var(--radius-btn);
+      flex: 1;
+    }
   </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXN0PKR3Z8"></script>
@@ -828,18 +872,33 @@
   <div class="hero-container">
     <div class="hero-inner">
       <div class="hero-tag">Available for opportunities · UAE · Remote</div>
-      <h1 class="hero-name" id="hero-name"></h1>
-      <p class="hero-subtitle" id="hero-subtitle"></p>
-      <p class="hero-oneliner" id="hero-oneliner"></p>
-      <div class="hero-ctas" id="hero-ctas"></div>
-      <div class="hero-contacts" id="hero-contacts"></div>
+      <h1 class="hero-name" id="hero-name">
+        <div class="skeleton skeleton-title" style="height:56px; width:60%; margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-title" style="height:56px; width:50%;"></div>
+      </h1>
+      <p class="hero-subtitle" id="hero-subtitle">
+        <div class="skeleton skeleton-text wide"></div>
+      </p>
+      <p class="hero-oneliner" id="hero-oneliner">
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text medium"></div>
+      </p>
+      <div class="hero-ctas" id="hero-ctas" style="display:flex; gap:12px;">
+        <div class="skeleton skeleton-btn" style="width:180px;"></div>
+        <div class="skeleton skeleton-btn" style="width:180px;"></div>
+      </div>
+      <div class="hero-contacts" id="hero-contacts" style="margin-top:16px;">
+        <div class="skeleton skeleton-text narrow"></div>
+      </div>
     </div>
     <div class="hero-photo-wrap">
+      <div class="skeleton skeleton-photo" id="hero-photo-skeleton"></div>
       <img
         id="hero-photo"
         src=""
         alt="Ammar Mufti Mohammed"
         class="hero-photo"
+        style="display:none;"
       />
     </div>
   </div>
@@ -852,8 +911,25 @@
     <div class="about-grid">
       <div class="about-text fade-in" id="about-text">
         <h2 class="section-title" style="margin-bottom:24px;">About Me</h2>
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text wide" style="margin-top:8px;"></div>
+        <div class="skeleton skeleton-text medium" style="margin-top:8px;"></div>
       </div>
-      <div class="skills-block fade-in" id="skills-block"></div>
+      <div class="skills-block fade-in" id="skills-block">
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:16px;"></div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;">
+          <div class="skeleton skeleton-pill"></div>
+          <div class="skeleton skeleton-pill"></div>
+          <div class="skeleton skeleton-pill"></div>
+          <div class="skeleton skeleton-pill"></div>
+        </div>
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:16px;"></div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <div class="skeleton skeleton-pill" style="width:60px;"></div>
+          <div class="skeleton skeleton-pill" style="width:60px;"></div>
+          <div class="skeleton skeleton-pill" style="width:60px;"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -864,7 +940,23 @@
     <div class="section-label">Experience</div>
     <h2 class="section-title">Work History</h2>
     <p class="section-subtitle">5+ years across telecoms, fintech, and Broadcasting.</p>
-    <div class="timeline" id="timeline"></div>
+    <div class="timeline" id="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="skeleton skeleton-text medium" style="margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:12px;"></div>
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text wide" style="margin-top:6px;"></div>
+        <div class="skeleton skeleton-text medium" style="margin-top:6px;"></div>
+      </div>
+      <div class="timeline-item" style="margin-top:40px;">
+        <div class="timeline-dot"></div>
+        <div class="skeleton skeleton-text medium" style="margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:12px;"></div>
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text medium" style="margin-top:6px;"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -874,7 +966,34 @@
     <div class="section-label">Proof of Work</div>
     <h2 class="section-title">Proof of Work</h2>
     <p class="section-subtitle">Client-facing delivery evidence from platform engagements at Safaricom Ethiopia.</p>
-    <div class="work-grid" id="work-grid"></div>
+    <div class="work-grid" id="work-grid">
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-text medium"></div>
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text wide"></div>
+        <div style="display:flex; gap:6px; margin:8px 0;">
+          <div class="skeleton skeleton-pill" style="width:60px; height:24px;"></div>
+          <div class="skeleton skeleton-pill" style="width:60px; height:24px;"></div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <div class="skeleton skeleton-btn"></div>
+          <div class="skeleton skeleton-btn"></div>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-text medium"></div>
+        <div class="skeleton skeleton-text wide"></div>
+        <div class="skeleton skeleton-text narrow"></div>
+        <div style="display:flex; gap:6px; margin:8px 0;">
+          <div class="skeleton skeleton-pill" style="width:60px; height:24px;"></div>
+          <div class="skeleton skeleton-pill" style="width:60px; height:24px;"></div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <div class="skeleton skeleton-btn"></div>
+          <div class="skeleton skeleton-btn"></div>
+        </div>
+      </div>
+    </div>
     <p class="work-notice">All documents are redacted delivery artefacts. Contact me to discuss any project in detail.</p>
   </div>
 </section>
@@ -884,7 +1003,18 @@
   <div class="container">
     <div class="section-label">Background</div>
     <h2 class="section-title">Education &amp; Certifications</h2>
-    <div class="edu-grid fade-in" id="edu-grid"></div>
+    <div class="edu-grid fade-in" id="edu-grid">
+      <div>
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:20px; height:20px;"></div>
+        <div class="skeleton skeleton-text medium" style="margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-text narrow"></div>
+      </div>
+      <div>
+        <div class="skeleton skeleton-text narrow" style="margin-bottom:20px; height:20px;"></div>
+        <div class="skeleton skeleton-pill" style="margin-bottom:10px; width:180px; height:50px;"></div>
+        <div class="skeleton skeleton-pill" style="width:180px; height:50px;"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -981,6 +1111,12 @@
 
   // ── Render Hero ──
   function renderHero(h) {
+    // Clear skeleton
+    const photoSkeleton = document.getElementById('hero-photo-skeleton');
+    if (photoSkeleton) photoSkeleton.style.display = 'none';
+    const photoEl2 = document.getElementById('hero-photo');
+    if (photoEl2) photoEl2.style.display = 'block';
+
     const nameParts = h.name.split(' ');
     const mid = Math.ceil(nameParts.length / 2);
     const line1 = nameParts.slice(0, mid).join(' ');
@@ -1170,6 +1306,27 @@
 
     } catch(err) {
       console.error('Failed to load portfolio data:', err);
+
+      // Show error states
+      const errorMsg = '<p style="color:var(--muted); font-size:14px; padding:20px 0;">Unable to load content. Please refresh the page.</p>';
+
+      const heroName = document.getElementById('hero-name');
+      if (heroName) heroName.innerHTML = '<span style="font-size:clamp(36px,7vw,64px); font-weight:700; color:var(--navy);">Ammar Mufti Mohammed</span>';
+
+      const heroSub = document.getElementById('hero-subtitle');
+      if (heroSub) heroSub.textContent = 'Technical Product Owner';
+
+      const timeline = document.getElementById('timeline');
+      if (timeline) timeline.innerHTML = errorMsg;
+
+      const workGrid = document.getElementById('work-grid');
+      if (workGrid) workGrid.innerHTML = errorMsg;
+
+      const eduGrid = document.getElementById('edu-grid');
+      if (eduGrid) eduGrid.innerHTML = errorMsg;
+
+      const aboutText = document.getElementById('about-text');
+      if (aboutText) aboutText.innerHTML = '<h2 class="section-title" style="margin-bottom:24px;">About Me</h2>' + errorMsg;
     }
   }
 
