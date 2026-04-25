@@ -293,7 +293,7 @@
     .hero-subtitle {
       font-size: clamp(16px, 2.5vw, 20px);
       font-weight: 600;
-      color: var(--muted);
+      color: var(--text);
       margin-bottom: 12px;
     }
     .hero-oneliner {
@@ -502,7 +502,7 @@
     }
     .project-desc {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text);
       margin-bottom: 12px;
       flex: 1;
       line-height: 1.55;
@@ -625,6 +625,36 @@
       align-items: center;
     }
     .footer-links a:hover { color: #fff; }
+
+    /* ── TOUCH TARGETS ── */
+    @media (max-width: 768px) {
+      .btn-card {
+        min-height: 44px;
+        padding: 10px 14px;
+      }
+      .btn {
+        min-height: 44px;
+      }
+      .hamburger {
+        min-width: 44px;
+        min-height: 44px;
+        justify-content: center;
+        align-items: center;
+      }
+      .theme-toggle {
+        min-height: 36px;
+      }
+      .hero-photo {
+        width: 140px;
+        height: 140px;
+      }
+    }
+    @media (max-width: 380px) {
+      .hero-photo {
+        width: 120px;
+        height: 120px;
+      }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -827,6 +857,49 @@
       border-radius: var(--radius-btn);
       flex: 1;
     }
+
+    /* ── SKIP TO CONTENT ── */
+    .skip-to-content {
+      position: fixed;
+      top: -100px;
+      left: 24px;
+      z-index: 99999;
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top 0.2s ease;
+      font-family: inherit;
+    }
+    .skip-to-content:focus {
+      top: 24px;
+    }
+
+    /* ── KEYBOARD FOCUS STYLES ── */
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .project-card:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
   </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXN0PKR3Z8"></script>
@@ -866,6 +939,7 @@
 </script>
 </head>
 <body>
+  <a href="#hero" class="skip-to-content" aria-label="Skip to main content">Skip to main content</a>
 
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
@@ -1169,6 +1243,7 @@
     const photo = document.getElementById('hero-photo');
     photo.onerror = () => photo.parentElement.style.display = 'none';
     photo.src = h.photo;
+    photo.alt = h.name || 'Ammar Mufti Mohammed';
     const photoWebp = document.getElementById('hero-photo-webp');
     if (photoWebp) photoWebp.srcset = h.photo.replace(/\.(jpg|jpeg|png)$/i, '.webp');
     document.title = h.tab_title || 'Ammar Mufti Mohammed · Portfolio';
