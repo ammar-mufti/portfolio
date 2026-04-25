@@ -1,0 +1,86 @@
+name: Update SEO Meta Tags
+
+on:
+  push:
+    paths:
+      - 'data/seo.json'
+
+permissions:
+  contents: write
+
+jobs:
+  update-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Update meta tags in index.html from seo.json
+        run: |
+          node -e "
+          const fs = require('fs');
+
+          const seo = JSON.parse(fs.readFileSync('data/seo.json', 'utf8'));
+          let html = fs.readFileSync('index.html', 'utf8');
+
+          // Update title tag
+          if (seo.title) {
+            html = html.replace(
+              /<title>[^<]*<\/title>/,
+              '<title>' + seo.title + '</title>'
+            );
+          }
+
+          // Update meta description
+          if (seo.description) {
+            html = html.replace(
+              /(<meta name=\"description\" content=\")[^\"]*(\")/,
+              '$1' + seo.description + '$2'
+            );
+          }
+
+          // Update OG title
+          if (seo.og_title) {
+            html = html.replace(
+              /(<meta property=\"og:title\" content=\")[^\"]*(\")/,
+              '$1' + seo.og_title + '$2'
+            );
+            html = html.replace(
+              /(<meta name=\"twitter:title\" content=\")[^\"]*(\")/,
+              '$1' + seo.og_title + '$2'
+            );
+          }
+
+          // Update OG description
+          if (seo.og_description) {
+            html = html.replace(
+              /(<meta property=\"og:description\" content=\")[^\"]*(\")/,
+              '$1' + seo.og_description + '$2'
+            );
+            html = html.replace(
+              /(<meta name=\"twitter:description\" content=\")[^\"]*(\")/,
+              '$1' + seo.og_description + '$2'
+            );
+          }
+
+          // Update keywords
+          if (seo.keywords) {
+            html = html.replace(
+              /(<meta name=\"keywords\" content=\")[^\"]*(\")/,
+              '$1' + seo.keywords + '$2'
+            );
+          }
+
+          fs.writeFileSync('index.html', html);
+          console.log('SEO meta tags updated in index.html');
+          "
+
+      - name: Commit updated index.html
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Auto-update SEO meta tags from seo.json [skip ci]"
+          git push origin main
