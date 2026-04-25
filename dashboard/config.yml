@@ -133,3 +133,16 @@ collections:
           - { label: "Show Experience Section", name: "experience", widget: "boolean", default: true }
           - { label: "Show Proof of Work Section", name: "work", widget: "boolean", default: true }
           - { label: "Show Education & Certifications Section", name: "education", widget: "boolean", default: true }
+
+  - name: "seo"
+    label: "SEO Settings"
+    files:
+      - label: "SEO and Social Sharing"
+        name: "seo"
+        file: "data/seo.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", hint: "Shown in browser tab and search results. Keep under 60 characters." }
+          - { label: "Meta Description", name: "description", widget: "text", hint: "Shown in Google search results. Keep under 160 characters." }
+          - { label: "Open Graph Title", name: "og_title", widget: "string", hint: "Title shown when link is shared on LinkedIn; WhatsApp; Facebook." }
+          - { label: "Open Graph Description", name: "og_description", widget: "text", hint: "Description shown when link is shared on LinkedIn; WhatsApp; Facebook." }
+          - { label: "Keywords", name: "keywords", widget: "string", hint: "Comma separated keywords for search engines." }

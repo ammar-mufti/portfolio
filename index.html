@@ -1104,20 +1104,44 @@
   // ── Fetch all data and render ──
   async function loadPortfolio() {
     try {
-      const [hero, about, experience, projectsJson, education, powSettings, sections] = await Promise.all([
+      const [hero, about, experience, projectsJson, education, powSettings, sections, seo] = await Promise.all([
         fetch('./data/hero.json').then(r => r.json()),
         fetch('./data/about.json').then(r => r.json()),
         fetch('./data/experience.json').then(r => r.json()),
         fetch('./data/projects.json').then(r => r.json()),
         fetch('./data/education.json').then(r => r.json()),
         fetch('./data/pow_settings.json').then(r => r.json()).catch(() => ({ notice: 'All documents are redacted delivery artefacts. Contact me to discuss any project in detail.' })),
-        fetch('./data/sections.json').then(r => r.json()).catch(() => ({ hero: true, about: true, experience: true, work: true, education: true }))
+        fetch('./data/sections.json').then(r => r.json()).catch(() => ({ hero: true, about: true, experience: true, work: true, education: true })),
+        fetch('./data/seo.json').then(r => r.json()).catch(() => ({}))
       ]);
 
       renderHero(hero);
       renderAbout(about);
       renderExperience(experience);
       renderEducation(education);
+      // Apply SEO settings from CMS
+      if (seo.title) document.title = seo.title;
+      if (seo.description) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', seo.description);
+      }
+      if (seo.og_title) {
+        let ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', seo.og_title);
+        let twTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twTitle) twTitle.setAttribute('content', seo.og_title);
+      }
+      if (seo.og_description) {
+        let ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', seo.og_description);
+        let twDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twDesc) twDesc.setAttribute('content', seo.og_description);
+      }
+      if (seo.keywords) {
+        let metaKeys = document.querySelector('meta[name="keywords"]');
+        if (metaKeys) metaKeys.setAttribute('content', seo.keywords);
+      }
+
       const noticeEl = document.querySelector('.work-notice');
       if (noticeEl) {
         if (powSettings.show_notice === false || !powSettings.notice) {
