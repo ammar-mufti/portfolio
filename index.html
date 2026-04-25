@@ -4,9 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading...</title>
+  <meta name="description" content="Technical Product Owner with 3.5+ years of experience delivering digital platforms in telecom environments. Based in UAE. Available for opportunities." />
+  <meta name="keywords" content="Technical Product Owner; TPO; Platform Delivery; UAE; East Africa; Safaricom; eKYC; SFA; Agile; UAT; Systems Integration" />
+  <meta name="author" content="Ammar Mufti Mohammed" />
+  <meta name="robots" content="index; follow" />
+
+  <!-- Open Graph for LinkedIn; WhatsApp; Facebook sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ammar-mufti.github.io/portfolio/" />
+  <meta property="og:title" content="Ammar Mufti Mohammed — Technical Product Owner" />
+  <meta property="og:description" content="Technical Product Owner with 3.5+ years delivering digital platforms in telecom. Proof of work; resume and contact all in one place." />
+  <meta property="og:image" content="https://ammar-mufti.github.io/portfolio/Ammar-Photo.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_GB" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ammar Mufti Mohammed — Technical Product Owner" />
+  <meta name="twitter:description" content="Technical Product Owner with 3.5+ years delivering digital platforms in telecom. Proof of work; resume and contact all in one place." />
+  <meta name="twitter:image" content="https://ammar-mufti.github.io/portfolio/Ammar-Photo.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ammar Mufti Mohammed",
+    "jobTitle": "Technical Product Owner",
+    "description": "Technical Product Owner with 3.5+ years of experience delivering customer-facing digital platforms in high-volume telecom environments.",
+    "url": "https://ammar-mufti.github.io/portfolio/",
+    "image": "https://ammar-mufti.github.io/portfolio/Ammar-Photo.jpg",
+    "email": "muftiammar52@gmail.com",
+    "sameAs": [
+      "https://linkedin.com/in/ammarmufti"
+    ],
+    "knowsLanguage": ["English", "Amharic", "Arabic"],
+    "workLocation": {
+      "@type": "Place",
+      "name": "United Arab Emirates"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style media="print">
+    nav, .theme-toggle, .admin-link, .back-to-top, footer { display: none !important; }
+    body { font-size: 12pt; color: #000; background: #fff; }
+    .hero-container { flex-direction: column; }
+    .hero-photo { width: 100px; height: 100px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .project-actions { display: none; }
+    a[href]::after { content: " (" attr(href) ")"; font-size: 10pt; color: #666; }
+    .fade-in { opacity: 1 !important; transform: none !important; }
+    section { padding: 20pt 0; page-break-inside: avoid; }
+  </style>
   <style>
     *, *::before, *::after {
       box-sizing: border-box; margin: 0; padding: 0;
@@ -683,6 +738,34 @@
       height: 16px;
       color: var(--muted);
     }
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 80px;
+      z-index: 9998;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      font-size: 18px;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      background: var(--navy);
+    }
   </style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXN0PKR3Z8"></script>
@@ -691,6 +774,34 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-EXN0PKR3Z8');
+
+  // Scroll depth tracking
+  (function() {
+    const depths = [25, 50, 75, 100];
+    const fired = {};
+    window.addEventListener('scroll', function() {
+      const scrolled = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      depths.forEach(function(depth) {
+        if (scrolled >= depth && !fired[depth]) {
+          fired[depth] = true;
+          gtag('event', 'scroll_depth', {
+            'event_category': 'Engagement',
+            'event_label': depth + '%',
+            'value': depth
+          });
+        }
+      });
+    }, { passive: true });
+  })();
+</script>
+
+<!-- Microsoft Clarity Heatmaps -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
 </script>
 </head>
 <body>
@@ -1039,7 +1150,29 @@
   }
 
   loadPortfolio();
+
+  // Back to top button
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  }, { passive: true });
 </script>
+  <!--
+    UTM TRACKING GUIDE
+    When sharing your portfolio link add UTM parameters to track the source:
+    LinkedIn:     https://ammar-mufti.github.io/portfolio/?utm_source=linkedin&utm_medium=profile
+    Job apply:    https://ammar-mufti.github.io/portfolio/?utm_source=jobboard&utm_medium=application&utm_campaign=tpo-roles
+    Email sig:    https://ammar-mufti.github.io/portfolio/?utm_source=email&utm_medium=signature
+    WhatsApp:     https://ammar-mufti.github.io/portfolio/?utm_source=whatsapp&utm_medium=direct
+    View results in GA4 under Reports > Acquisition > Traffic Acquisition
+  -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ↑
+  </button>
   <a href="https://ammar-mufti.github.io/portfolio/dashboard" target="_blank" class="admin-link" title="Dashboard">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <rect x="3" y="11" width="8" height="10" rx="1"/>

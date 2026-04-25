@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /portfolio/
+Disallow: /portfolio/dashboard/
+Sitemap: https://ammar-mufti.github.io/portfolio/sitemap.xml
