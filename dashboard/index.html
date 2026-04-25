@@ -303,6 +303,132 @@
     }
     .clarity-link .clarity-desc { font-size: 11px; color: #9CA3AF; font-weight: 400; margin-top: 2px; }
 
+    /* ── AUDIT LOG PANEL ── */
+    .audit-toggle-btn {
+      position: fixed;
+      bottom: 156px;
+      left: 24px;
+      z-index: 99988;
+      background: #0F766E;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-family: sans-serif;
+      transition: transform 0.18s;
+    }
+    .audit-toggle-btn:hover { transform: translateY(-2px); }
+    .audit-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: #1A1A2E;
+      z-index: 99995;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .audit-panel.open { right: 0; }
+    .audit-panel-header {
+      background: #0F766E;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .audit-panel-header h3 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .audit-panel-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: sans-serif;
+    }
+    .audit-panel-close:hover { background: rgba(255,255,255,0.35); }
+    .audit-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .audit-item {
+      background: #2D2D4A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border-left: 3px solid #0F766E;
+    }
+    .audit-item-msg {
+      font-size: 13px;
+      color: #E5E7EB;
+      font-weight: 600;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .audit-item-meta {
+      font-size: 11px;
+      color: #9CA3AF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .audit-item-author {
+      color: #4F8EF7;
+      font-weight: 600;
+    }
+    .audit-loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: #9CA3AF;
+      font-size: 13px;
+    }
+    .audit-error {
+      text-align: center;
+      padding: 20px;
+      color: #EF4444;
+      font-size: 13px;
+    }
+    .audit-refresh-btn {
+      width: 100%;
+      background: #2D2D4A;
+      border: 1px solid #3D3D6A;
+      color: #9CA3AF;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 8px;
+      font-family: sans-serif;
+    }
+    .audit-refresh-btn:hover { background: #3D3D6A; color: #fff; }
+    .audit-commit-link {
+      color: #4F8EF7;
+      text-decoration: none;
+      font-size: 11px;
+    }
+    .audit-commit-link:hover { text-decoration: underline; }
+
   </style>
 </head>
 <body>
@@ -395,15 +521,34 @@
     </div>
   </div>
 
+  <!-- Audit Log Button -->
+  <button class="audit-toggle-btn" onclick="togglePanel('auditPanel')" aria-label="Audit Log">
+    📋 Audit Log
+  </button>
+
+  <!-- Audit Log Panel -->
+  <div class="audit-panel" id="auditPanel">
+    <div class="audit-panel-header">
+      <h3>📋 Audit Log</h3>
+      <button class="audit-panel-close" onclick="togglePanel('auditPanel')">✕ Close</button>
+    </div>
+    <div class="audit-panel-body" id="auditPanelBody">
+      <div class="audit-loading">Loading recent changes...</div>
+    </div>
+  </div>
+
   <script>
     function togglePanel(id) {
-      ['gaPanel', 'clarityPanel'].forEach(function(pid) {
+      ['gaPanel', 'clarityPanel', 'auditPanel'].forEach(function(pid) {
         var el = document.getElementById(pid);
         if (pid === id) { el.classList.toggle('open'); }
         else { el.classList.remove('open'); }
       });
       if (id === 'gaPanel' && document.getElementById('gaPanel').classList.contains('open')) {
         loadGAStats();
+      }
+      if (id === 'auditPanel' && document.getElementById('auditPanel').classList.contains('open')) {
+        loadAuditLog();
       }
     }
 
@@ -482,6 +627,84 @@
         }
       }
     })();
+
+    async function loadAuditLog() {
+      const body = document.getElementById('auditPanelBody');
+      body.innerHTML = '<div class="audit-loading">Loading recent changes...</div>';
+
+      try {
+        const res = await fetch(
+          'https://api.github.com/repos/ammar-mufti/portfolio/commits?per_page=25',
+          { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+        );
+
+        if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+
+        const commits = await res.json();
+
+        const skipPatterns = [
+          'pages build',
+          'Auto-update projects',
+          'Auto-update SEO',
+          '[skip ci]',
+          'initial commit'
+        ];
+
+        const filtered = commits.filter(c => {
+          const msg = c.commit.message.toLowerCase();
+          return !skipPatterns.some(p => msg.includes(p.toLowerCase()));
+        });
+
+        if (filtered.length === 0) {
+          body.innerHTML = '<div class="audit-loading">No recent changes found.</div>';
+          return;
+        }
+
+        const html = filtered.map(function(c) {
+          const msg = c.commit.message.split('\n')[0];
+          const author = c.commit.author.name;
+          const date = new Date(c.commit.author.date);
+          const timeAgo = getTimeAgo(date);
+          const sha = c.sha.substring(0, 7);
+          const url = c.html_url;
+
+          return '<div class="audit-item">' +
+            '<div class="audit-item-msg">' + escHtml(msg) + '</div>' +
+            '<div class="audit-item-meta">' +
+              '<span><span class="audit-item-author">' + escHtml(author) + '</span> · ' + timeAgo + '</span>' +
+              '<a href="' + url + '" target="_blank" class="audit-commit-link">' + sha + ' ↗</a>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        body.innerHTML = html + '<button class="audit-refresh-btn" onclick="loadAuditLog()">↻ Refresh</button>';
+
+      } catch(err) {
+        body.innerHTML = '<div class="audit-error">Could not load audit log.<br>GitHub API may be rate limited.<br><br><button class="audit-refresh-btn" onclick="loadAuditLog()">↻ Try Again</button></div>';
+        console.error('Audit log error:', err);
+      }
+    }
+
+    function getTimeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      if (seconds < 60) return 'just now';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return minutes + ' min ago';
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return hours + ' hr ago';
+      const days = Math.floor(hours / 24);
+      if (days < 30) return days + ' day' + (days > 1 ? 's' : '') + ' ago';
+      const months = Math.floor(days / 30);
+      return months + ' month' + (months > 1 ? 's' : '') + ' ago';
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
   </script>
 
 </body>
