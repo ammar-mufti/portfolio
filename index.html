@@ -935,6 +935,74 @@
       flex: 1;
     }
 
+    /* ── PDF OVERLAY ── */
+    .pdf-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pdf-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .pdf-overlay-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+      gap: 16px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .pdf-overlay-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .pdf-overlay-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .pdf-overlay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+      text-decoration: none;
+      font-size: 16px;
+      font-family: inherit;
+    }
+    .pdf-overlay-btn:hover { border-color: var(--blue); color: var(--blue); }
+    #pdfOverlayClose:hover { border-color: #ef4444; color: #ef4444; }
+    .pdf-overlay-frame {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+
     /* ── SKIP TO CONTENT ── */
     .skip-to-content {
       position: fixed;
@@ -1374,10 +1442,10 @@
         <div class="project-desc">${esc(p.description)}</div>
         <div class="project-tags">${tags}</div>
         <div class="project-actions">
-          <a href="https://docs.google.com/viewer?url=https://ammar-mufti.github.io/portfolio/${esc(p.file)}" target="_blank" class="btn btn-primary btn-card" onclick="gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
+          <button class="btn btn-primary btn-card" onclick="openPdfViewer('${esc(p.file)}', '${label}'); gtag('event', 'project_view', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             View
-          </a>
+          </button>
           <a href="${esc(p.file)}" download="${fileName}" class="btn btn-outline btn-card" onclick="gtag('event', 'project_download', {'event_category': 'Proof of Work', 'event_label': '${label}'});">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download
@@ -1506,6 +1574,43 @@
 
   loadPortfolio();
 
+  // ── PDF Overlay ──
+  function openPdfViewer(filePath, title) {
+    const overlay = document.getElementById('pdfOverlay');
+    const frame = document.getElementById('pdfOverlayFrame');
+    const titleEl = document.getElementById('pdfOverlayTitle');
+    const newTabBtn = document.getElementById('pdfOverlayNewTab');
+    const downloadBtn = document.getElementById('pdfOverlayDownload');
+
+    const fullUrl = 'https://ammar-mufti.github.io/portfolio/' + filePath;
+    titleEl.textContent = title;
+    frame.src = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
+    newTabBtn.href = 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl);
+    downloadBtn.href = filePath;
+    downloadBtn.setAttribute('download', filePath.split('/').pop());
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('pdfOverlayClose').focus();
+  }
+
+  function closePdfViewer() {
+    const overlay = document.getElementById('pdfOverlay');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      document.getElementById('pdfOverlayFrame').src = '';
+    }, 300);
+  }
+
+  document.getElementById('pdfOverlayClose').addEventListener('click', closePdfViewer);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('pdfOverlay').classList.contains('open')) {
+      closePdfViewer();
+    }
+  });
+
   // Back to top button
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', function() {
@@ -1525,6 +1630,25 @@
     WhatsApp:     https://ammar-mufti.github.io/portfolio/?utm_source=whatsapp&utm_medium=direct
     View results in GA4 under Reports > Acquisition > Traffic Acquisition
   -->
+  <!-- PDF full-screen overlay -->
+  <div class="pdf-overlay" id="pdfOverlay" role="dialog" aria-modal="true" aria-label="Document viewer">
+    <div class="pdf-overlay-header">
+      <span class="pdf-overlay-title" id="pdfOverlayTitle"></span>
+      <div class="pdf-overlay-actions">
+        <a class="pdf-overlay-btn" id="pdfOverlayNewTab" href="#" target="_blank" rel="noopener" title="Open in new tab" aria-label="Open in new tab">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <a class="pdf-overlay-btn" id="pdfOverlayDownload" href="#" title="Download" aria-label="Download">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+        <button class="pdf-overlay-btn" id="pdfOverlayClose" title="Close" aria-label="Close viewer">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <iframe class="pdf-overlay-frame" id="pdfOverlayFrame" src="" title="PDF Viewer" allowfullscreen></iframe>
+  </div>
+
   <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     ↑
   </button>
