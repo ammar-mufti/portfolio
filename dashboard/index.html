@@ -18,29 +18,71 @@
       pointer-events: none;
     }
 
-    /* ── SITE LABEL — bottom LEFT, well clear of everything ── */
+    /* ── SITE LABEL — inside fab-menu ── */
     .cms-site-label {
-      position: fixed;
-      bottom: 170px;
-      left: 24px;
-      z-index: 99989;
       background: #1A1A2E;
       color: #6B7280;
       font-family: sans-serif;
       font-size: 11px;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       border: 1px solid #2D2D4A;
       pointer-events: none;
       letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
-    /* ── FLOATING BUTTONS — all on LEFT bottom, away from CMS top-right icons ── */
-    .view-on-site-btn {
+    /* ── FAB MENU — collapsible floating action button cluster ── */
+    .fab-menu {
       position: fixed;
-      bottom: 228px;
-      left: 24px;
-      z-index: 99988;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .fab-toggle-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--primary, #1A56DB);
+      color: #fff;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+      font-family: sans-serif;
+      transition: transform 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .fab-toggle-btn:hover { transform: scale(1.1); }
+    .fab-toggle-btn.open { background: #374151; }
+
+    .fab-items {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      gap: 10px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .fab-items.open {
+      max-height: 400px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── FLOATING BUTTONS — shared style, no longer individually positioned ── */
+    .view-on-site-btn {
       background: #1A1A2E;
       color: #fff;
       border: 1px solid #2D2D4A;
@@ -56,14 +98,11 @@
       font-family: sans-serif;
       transition: transform 0.18s;
       text-decoration: none;
+      white-space: nowrap;
     }
     .view-on-site-btn:hover { transform: translateY(-2px); }
 
     .clarity-toggle-btn {
-      position: fixed;
-      bottom: 90px;
-      left: 24px;
-      z-index: 99988;
       background: #5C2D91;
       color: #fff;
       border: none;
@@ -78,14 +117,11 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.2);
       font-family: sans-serif;
       transition: transform 0.18s;
+      white-space: nowrap;
     }
     .clarity-toggle-btn:hover { transform: translateY(-2px); }
 
     .ga-toggle-btn {
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      z-index: 99988;
       background: #E37400;
       color: #fff;
       border: none;
@@ -100,6 +136,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.2);
       font-family: sans-serif;
       transition: transform 0.18s;
+      white-space: nowrap;
     }
     .ga-toggle-btn:hover { transform: translateY(-2px); }
 
@@ -305,10 +342,6 @@
 
     /* ── AUDIT LOG PANEL ── */
     .audit-toggle-btn {
-      position: fixed;
-      bottom: 156px;
-      left: 24px;
-      z-index: 99988;
       background: #0F766E;
       color: #fff;
       border: none;
@@ -323,6 +356,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.2);
       font-family: sans-serif;
       transition: transform 0.18s;
+      white-space: nowrap;
     }
     .audit-toggle-btn:hover { transform: translateY(-2px); }
     .audit-panel {
@@ -434,21 +468,28 @@
 <body>
 
   <div class="cms-identity-bar"></div>
-  <div class="cms-site-label">⚙ Portfolio Dashboard</div>
 
   <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
-  <a href="https://ammar-mufti.github.io/portfolio" target="_blank" class="view-on-site-btn" aria-label="View Live Site">
-    🌐 View Live Site
-  </a>
-
-  <button class="clarity-toggle-btn" onclick="togglePanel('clarityPanel')" aria-label="Clarity">
-    🔥 Clarity
-  </button>
-
-  <button class="ga-toggle-btn" onclick="togglePanel('gaPanel')" aria-label="Analytics">
-    📊 Analytics
-  </button>
+  <!-- Collapsible floating action menu -->
+  <div class="fab-menu" id="fabMenu">
+    <button class="fab-toggle-btn" id="fabToggle" onclick="toggleFabMenu()" aria-label="Toggle menu">⚡</button>
+    <div class="fab-items" id="fabItems">
+      <a href="https://ammar-mufti.github.io/portfolio" target="_blank" class="view-on-site-btn" aria-label="View Live Site">
+        🌐 View Live Site
+      </a>
+      <div class="cms-site-label">⚙ Portfolio Dashboard</div>
+      <button class="audit-toggle-btn" onclick="togglePanel('auditPanel')" aria-label="Audit Log">
+        📋 Audit Log
+      </button>
+      <button class="clarity-toggle-btn" onclick="togglePanel('clarityPanel')" aria-label="Clarity">
+        🔥 Clarity
+      </button>
+      <button class="ga-toggle-btn" onclick="togglePanel('gaPanel')" aria-label="Analytics">
+        📊 Analytics
+      </button>
+    </div>
+  </div>
 
   <!-- CLARITY PANEL -->
   <div class="clarity-panel" id="clarityPanel">
@@ -520,11 +561,6 @@
       <a href="https://analytics.google.com/analytics/web/#/p534273746/reports/explorer?params=_u..nav%3Dmaui%26_u.dateOption%3Dlast30Days&r=all-events&collectionId=life-cycle" target="_blank" class="ga-link"><div class="ga-icon">🗂</div><div><div>Project Views and Downloads</div><div class="ga-desc">Filter by: project_view; project_download</div></div></a>
     </div>
   </div>
-
-  <!-- Audit Log Button -->
-  <button class="audit-toggle-btn" onclick="togglePanel('auditPanel')" aria-label="Audit Log">
-    📋 Audit Log
-  </button>
 
   <!-- Audit Log Panel -->
   <div class="audit-panel" id="auditPanel">
@@ -704,6 +740,16 @@
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+  </script>
+
+  <script>
+    function toggleFabMenu() {
+      var items = document.getElementById('fabItems');
+      var toggle = document.getElementById('fabToggle');
+      var isOpen = items.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen);
     }
   </script>
 
