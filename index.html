@@ -940,31 +940,50 @@
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: var(--bg);
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
     }
     .pdf-overlay.open {
       opacity: 1;
       pointer-events: auto;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .pdf-overlay-modal {
+      width: 100%;
+      max-width: 860px;
+      height: min(82vh, 720px);
+      background: var(--surface);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.96) translateY(8px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pdf-overlay.open .pdf-overlay-modal {
+      transform: scale(1) translateY(0);
     }
     .pdf-overlay-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 20px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
       flex-shrink: 0;
       gap: 16px;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     .pdf-overlay-title {
       font-family: var(--font-display);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--navy);
       letter-spacing: -0.01em;
@@ -976,15 +995,15 @@
     .pdf-overlay-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-shrink: 0;
     }
     .pdf-overlay-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: var(--radius-btn);
       border: 1px solid var(--border);
       background: var(--bg);
@@ -992,11 +1011,10 @@
       cursor: pointer;
       transition: border-color 0.15s, color 0.15s, background-color 0.15s;
       text-decoration: none;
-      font-size: 16px;
       font-family: inherit;
     }
     .pdf-overlay-btn:hover { border-color: var(--blue); color: var(--blue); }
-    #pdfOverlayClose:hover { border-color: #ef4444; color: #ef4444; }
+    #pdfOverlayClose:hover { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.06); }
     .pdf-overlay-frame {
       flex: 1;
       border: none;
@@ -1369,10 +1387,10 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download Resume
       </a>
-      <a href="https://docs.google.com/viewer?url=https://ammar-mufti.github.io/portfolio/${esc(h.resume_filename)}" target="_blank" class="btn btn-outline" onclick="gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
+      <button class="btn btn-outline" onclick="openPdfViewer('${esc(h.resume_filename)}', 'Resume — ${esc(h.name)}'); gtag('event', 'resume_view', {'event_category': 'Resume', 'event_label': 'View Resume Online'});">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         View Resume Online
-      </a>`;
+      </button>`;
 
     document.getElementById('hero-contacts').innerHTML = `
       <a href="mailto:${esc(h.email)}" class="hero-email">
@@ -1603,8 +1621,6 @@
     }, 300);
   }
 
-  document.getElementById('pdfOverlayClose').addEventListener('click', closePdfViewer);
-
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && document.getElementById('pdfOverlay').classList.contains('open')) {
       closePdfViewer();
@@ -1630,23 +1646,25 @@
     WhatsApp:     https://ammar-mufti.github.io/portfolio/?utm_source=whatsapp&utm_medium=direct
     View results in GA4 under Reports > Acquisition > Traffic Acquisition
   -->
-  <!-- PDF full-screen overlay -->
-  <div class="pdf-overlay" id="pdfOverlay" role="dialog" aria-modal="true" aria-label="Document viewer">
-    <div class="pdf-overlay-header">
-      <span class="pdf-overlay-title" id="pdfOverlayTitle"></span>
-      <div class="pdf-overlay-actions">
-        <a class="pdf-overlay-btn" id="pdfOverlayNewTab" href="#" target="_blank" rel="noopener" title="Open in new tab" aria-label="Open in new tab">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-        <a class="pdf-overlay-btn" id="pdfOverlayDownload" href="#" title="Download" aria-label="Download">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </a>
-        <button class="pdf-overlay-btn" id="pdfOverlayClose" title="Close" aria-label="Close viewer">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
+  <!-- PDF modal overlay -->
+  <div class="pdf-overlay" id="pdfOverlay" role="dialog" aria-modal="true" aria-label="Document viewer" onclick="if(event.target===this)closePdfViewer()">
+    <div class="pdf-overlay-modal">
+      <div class="pdf-overlay-header">
+        <span class="pdf-overlay-title" id="pdfOverlayTitle"></span>
+        <div class="pdf-overlay-actions">
+          <a class="pdf-overlay-btn" id="pdfOverlayNewTab" href="#" target="_blank" rel="noopener" title="Open in new tab" aria-label="Open in new tab">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a class="pdf-overlay-btn" id="pdfOverlayDownload" href="#" title="Download" aria-label="Download">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+          <button class="pdf-overlay-btn" id="pdfOverlayClose" onclick="closePdfViewer()" title="Close" aria-label="Close viewer">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
       </div>
+      <iframe class="pdf-overlay-frame" id="pdfOverlayFrame" src="" title="PDF Viewer" allowfullscreen></iframe>
     </div>
-    <iframe class="pdf-overlay-frame" id="pdfOverlayFrame" src="" title="PDF Viewer" allowfullscreen></iframe>
   </div>
 
   <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
