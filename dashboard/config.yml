@@ -16,11 +16,11 @@ collections:
         name: "hero"
         file: "data/hero.json"
         fields:
-          - { label: "Full Name", name: "name", widget: "string" }
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "One Liner", name: "oneliner", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
+          - { label: "Full Name", name: "name", widget: "string", required: false }
+          - { label: "Title", name: "title", widget: "string", required: false }
+          - { label: "One Liner", name: "oneliner", widget: "string", required: false }
+          - { label: "Email", name: "email", widget: "string", required: false }
+          - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
           - label: "Resume PDF"
             name: "resume_filename"
             widget: "file"
@@ -28,13 +28,15 @@ collections:
             public_folder: "/"
             accept: ".pdf"
             hint: "Upload your resume PDF here. File will be saved to the root folder."
+            required: false
           - label: "Profile Photo"
             name: "photo"
             widget: "image"
             media_folder: "/"
             public_folder: "/"
             hint: "Upload your profile photo here. File will be saved to the root folder."
-          - { label: "Browser Tab Title", name: "tab_title", widget: "string", hint: "This is what appears on the browser tab when someone visits your site." }
+            required: false
+          - { label: "Browser Tab Title", name: "tab_title", widget: "string", hint: "This is what appears on the browser tab when someone visits your site.", required: false }
 
   - name: "about"
     label: "About Me"
@@ -43,16 +45,18 @@ collections:
         name: "about"
         file: "data/about.json"
         fields:
-          - { label: "Summary Paragraph", name: "summary", widget: "text" }
-          - { label: "Second Paragraph", name: "summary2", widget: "text" }
+          - { label: "Summary Paragraph", name: "summary", widget: "text", required: false }
+          - { label: "Second Paragraph", name: "summary2", widget: "text", required: false }
           - label: "Core Skills"
             name: "core_skills"
             widget: "list"
-            field: { label: "Skill", name: "skill", widget: "string" }
+            required: false
+            field: { label: "Skill", name: "skill", widget: "string", required: false }
           - label: "Tools & Systems"
             name: "tools"
             widget: "list"
-            field: { label: "Tool", name: "tool", widget: "string" }
+            required: false
+            field: { label: "Tool", name: "tool", widget: "string", required: false }
 
   - name: "experience"
     label: "Experience"
@@ -64,15 +68,17 @@ collections:
           - label: "Roles"
             name: "roles"
             widget: "list"
+            required: false
             fields:
-              - { label: "Job Title", name: "title", widget: "string" }
-              - { label: "Company", name: "company", widget: "string" }
-              - { label: "Location", name: "location", widget: "string" }
-              - { label: "Period", name: "period", widget: "string" }
+              - { label: "Job Title", name: "title", widget: "string", required: false }
+              - { label: "Company", name: "company", widget: "string", required: false }
+              - { label: "Location", name: "location", widget: "string", required: false }
+              - { label: "Period", name: "period", widget: "string", required: false }
               - label: "Bullets"
                 name: "bullets"
                 widget: "list"
-                field: { label: "Bullet", name: "bullet", widget: "string" }
+                required: false
+                field: { label: "Bullet", name: "bullet", widget: "string", required: false }
 
   - name: "projects"
     label: "Proof of Work"
@@ -84,15 +90,16 @@ collections:
     extension: "md"
     format: "frontmatter"
     fields:
-      - { label: "Project Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Project Title", name: "title", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
       - label: "Tags"
         name: "tags"
         widget: "list"
-        field: { label: "Tag", name: "tag", widget: "string" }
-      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", accept: [".pdf"], hint: "⚠️ PDF files only. Other formats will be rejected." }
-      - { label: "Visible on site", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this project without deleting it" }
-      - { label: "Date Added/Updated", name: "date", widget: "datetime", default: "", date_format: "DD MMM YYYY", time_format: false, hint: "Set the date this project was added or last updated." }
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string", required: false }
+      - { label: "PDF File", name: "file", widget: "file", media_folder: "/projects", public_folder: "projects", accept: [".pdf"], hint: "⚠️ PDF files only. Other formats will be rejected.", required: false }
+      - { label: "Visible on site", name: "visible", widget: "boolean", default: true, hint: "Uncheck to hide this project without deleting it", required: false }
+      - { label: "Date Added/Updated", name: "date", widget: "datetime", default: "", date_format: "DD MMM YYYY", time_format: false, hint: "Set the date this project was added or last updated.", required: false }
 
   - name: "education"
     label: "Education & Certifications"
@@ -101,15 +108,16 @@ collections:
         name: "education"
         file: "data/education.json"
         fields:
-          - { label: "Degree", name: "degree", widget: "string" }
-          - { label: "University", name: "university", widget: "string" }
+          - { label: "Degree", name: "degree", widget: "string", required: false }
+          - { label: "University", name: "university", widget: "string", required: false }
           - { label: "Period", name: "period", widget: "string", required: false }
           - label: "Certifications"
             name: "certifications"
             widget: "list"
+            required: false
             fields:
-              - { label: "Certificate Name", name: "name", widget: "string" }
-              - { label: "Issuer", name: "issuer", widget: "string" }
+              - { label: "Certificate Name", name: "name", widget: "string", required: false }
+              - { label: "Issuer", name: "issuer", widget: "string", required: false }
 
   - name: "settings"
     label: "Site Settings"
@@ -118,7 +126,7 @@ collections:
         name: "pow_settings"
         file: "data/pow_settings.json"
         fields:
-          - { label: "Show Section Notice", name: "show_notice", widget: "boolean", default: true, hint: "Toggle to show or hide the notice below the proof of work cards" }
+          - { label: "Show Section Notice", name: "show_notice", widget: "boolean", default: true, hint: "Toggle to show or hide the notice below the proof of work cards", required: false }
           - { label: "Section Notice", name: "notice", widget: "text", required: false, hint: "Text shown below the proof of work cards. Leave blank to hide.", default: "All documents are redacted delivery artefacts. Contact me to discuss any project in detail." }
 
   - name: "sections"
@@ -128,11 +136,11 @@ collections:
         name: "sections"
         file: "data/sections.json"
         fields:
-          - { label: "Show Hero Section", name: "hero", widget: "boolean", default: true }
-          - { label: "Show About Me Section", name: "about", widget: "boolean", default: true }
-          - { label: "Show Experience Section", name: "experience", widget: "boolean", default: true }
-          - { label: "Show Proof of Work Section", name: "work", widget: "boolean", default: true }
-          - { label: "Show Education & Certifications Section", name: "education", widget: "boolean", default: true }
+          - { label: "Show Hero Section", name: "hero", widget: "boolean", default: true, required: false }
+          - { label: "Show About Me Section", name: "about", widget: "boolean", default: true, required: false }
+          - { label: "Show Experience Section", name: "experience", widget: "boolean", default: true, required: false }
+          - { label: "Show Proof of Work Section", name: "work", widget: "boolean", default: true, required: false }
+          - { label: "Show Education & Certifications Section", name: "education", widget: "boolean", default: true, required: false }
 
   - name: "seo"
     label: "SEO Settings"
@@ -141,8 +149,8 @@ collections:
         name: "seo"
         file: "data/seo.json"
         fields:
-          - { label: "Page Title", name: "title", widget: "string", hint: "Shown in browser tab and search results. Keep under 60 characters." }
-          - { label: "Meta Description", name: "description", widget: "text", hint: "Shown in Google search results. Keep under 160 characters." }
-          - { label: "Open Graph Title", name: "og_title", widget: "string", hint: "Title shown when link is shared on LinkedIn; WhatsApp; Facebook." }
-          - { label: "Open Graph Description", name: "og_description", widget: "text", hint: "Description shown when link is shared on LinkedIn; WhatsApp; Facebook." }
-          - { label: "Keywords", name: "keywords", widget: "string", hint: "Comma separated keywords for search engines." }
+          - { label: "Page Title", name: "title", widget: "string", hint: "Shown in browser tab and search results. Keep under 60 characters.", required: false }
+          - { label: "Meta Description", name: "description", widget: "text", hint: "Shown in Google search results. Keep under 160 characters.", required: false }
+          - { label: "Open Graph Title", name: "og_title", widget: "string", hint: "Title shown when link is shared on LinkedIn; WhatsApp; Facebook.", required: false }
+          - { label: "Open Graph Description", name: "og_description", widget: "text", hint: "Description shown when link is shared on LinkedIn; WhatsApp; Facebook.", required: false }
+          - { label: "Keywords", name: "keywords", widget: "string", hint: "Comma separated keywords for search engines.", required: false }
