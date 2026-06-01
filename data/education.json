@@ -14,6 +14,14 @@
     {
       "name": "AWS Cloud Computing",
       "issuer": "ALX"
+    },
+    {
+      "name": "Google Project Management",
+      "issuer": "Google"
+    },
+    {
+      "name": "AWS AI Practitioner Challenge",
+      "issuer": "Udacity"
     }
   ]
 }
